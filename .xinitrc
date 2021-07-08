@@ -54,7 +54,7 @@ export SSH_AUTH_SOCK
 # https://bbs.archlinux.org/viewtopic.php?id=231006
 #
 mkdir -p "$HOME"/.local/share/keyrings
-##source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
 # allow `screenlockuser` to do stuff with my screen (TODO -see project "screenlock")
 xhost +SI:localuser:screenlockuser

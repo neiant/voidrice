@@ -1,3 +1,6 @@
 [submodule ".config/mpv/scripts/mpvSockets"]
 	path = .config/mpv/scripts/mpvSockets
 	url = https://github.com/wis/mpvSockets.git
+[submodule ".config/iterm"]
+	path = .config/iterm
+	url = https://github.com/kiprasmel/iterm-config.git

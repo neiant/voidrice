@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+BRIGHTNESS=${1:-70}
+
+killall redshift
+
+. ~/.config/aliasrc
+
+bright $BRIGHTNESS && redshift &
+

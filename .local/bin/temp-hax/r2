@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+killall redshift
+
+. ~/.config/aliasrc
+
+bright 100
+

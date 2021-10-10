@@ -2,6 +2,7 @@
 # https://wiki.archlinux.org/title/zsh
 
 # measure boot time (see also the last line)
+# note: uses gnu-date
 bootTimeStart=$(date +%s%N)
 
 # bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
@@ -417,9 +418,24 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 case "$OSTYPE" in
 	# https://unix.stackexchange.com/a/446380/332452
-	$~darvin*)
+	darwin*)
 		# iterm2
 		test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
+		
+		# export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
+
+		# sourcing in the beginning already for the proper gnu-date
+
+		# [ -n "$TMUX" ] && {
+			# source "$HOME/.profile"
+
+			### # copied from .profile because tmux is not a login shell and needs it sourced anyway
+
+			### # see https://stackoverflow.com/a/57973942/9285308
+			### # make GNU commands available
+			### export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+			### export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
+		# }
 	;;
 		*)
 	;;

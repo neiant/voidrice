@@ -228,7 +228,7 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^o' 'lfcd\n'
+#bindkey -s '^o' 'lfcd\n'
 
 bindkey -s -M viins '^w' 'exit\n'
 bindkey -s -M vicmd '^w' 'exit\n'
@@ -313,6 +313,19 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 ###
+
+# C-a for end of line, C-i for beginning of line (just like vi)
+
+bindkey -- '^o' beginning-of-line
+bindkey -M viins -- '^o' beginning-of-line
+bindkey -M vicmd -- '^o' beginning-of-line
+
+bindkey -- '^a' end-of-line
+bindkey -M vicmd -- '^a' end-of-line
+bindkey -M viins -- '^a' end-of-line
+
+###
+
 # history search - see https://wiki.archlinux.org/index.php/Zsh#History_search
 
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search

@@ -209,16 +209,10 @@ export MOZCONFIG="$HOME/.config/mozilla/mozconfig"
 # https://github.com/aitjcize/cppman/issues/84#issuecomment-763265258
 ## export MANPATH="${XDG_DATA_HOME}/man"
 
-# global imports
-# see https://stackoverflow.com/a/15646750/9285308
-# and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
-export NODE_PATH="$(yarn global dir)"
-
 # disable emoji in minikube
 export MINIKUBE_IN_STYLE=false
 
 # work
-
 export PIPEDRIVE_GIT_DIR="$HOME/fun"
 
 # https://stackoverflow.com/a/18434831
@@ -226,6 +220,12 @@ case "$OSTYPE" in
   solaris*) echo "SOLARIS" ;;
   darwin*)
 	  	# echo "OSX"
+
+		# nvm - only on work
+		export NVM_DIR="$HOME/.config/nvm"
+		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+		# end nvm
 
 		command -v "/usr/local/bin/ssh-askpass" &>/dev/null || { echo "please install https://github.com/theseal/ssh-askpass"; exit 1 }
 		SUDO_ASKPASS="/usr/local/bin/ssh-askpass"
@@ -246,9 +246,10 @@ case "$OSTYPE" in
  		# export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
 		
 		export PATH="/Applications/Firefox Developer Edition.app/Contents/MacOS/:$PATH"
+		BROWSER="/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox" # additional escape characters apparently still needed because of later evaluation
 
-		export PATH="/Applications/Google Chrome.app/Contents/MacOS:$PATH"
-		BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" # additional escape characters apparently still needed because of later evaluation
+		#export PATH="/Applications/Google Chrome.app/Contents/MacOS:$PATH"
+		#BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" # additional escape characters apparently still needed because of later evaluation
 
 		# add yabai (wm) scripts
 		export PATH="${XDG_CONFIG_HOME:-$HOME/.config}/yabai/scripts:$PATH"
@@ -262,3 +263,9 @@ case "$OSTYPE" in
   *)        #echo "unknown: $OSTYPE" ;;
   		;;
 esac
+
+# needs to be below because nvm
+# see https://stackoverflow.com/a/15646750/9285308
+# and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
+export NODE_PATH="$(yarn global dir)"
+

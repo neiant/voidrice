@@ -61,16 +61,16 @@ prompt redhat
 fpath=($HOME/.config/zsh/completions $fpath)
 ##autoload -U compinit && compinit
 
-# source 'git-extras' completions
-# (https://github.com/tj/git-extras)
-[ -f "$HOME/.config/zsh/completions/git-extras-completion.zsh" ] && source "$HOME/.config/zsh/completions/git-extras-completion.zsh"
-
 stty stop undef		# Disable ctrl-s to freeze terminal.
 
 # make backspace work in vim + tmux environment
 # see https://superuser.com/a/793283/1012390
 stty erase "^?"
 # see also 'stty ek'
+
+# source 'git-extras' completions
+# (https://github.com/tj/git-extras)
+[ -f "$HOME/.config/zsh/completions/git-extras-completion.zsh" ] && source "$HOME/.config/zsh/completions/git-extras-completion.zsh"
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
@@ -434,11 +434,13 @@ zstyle 'zle:exchange' highlight 'fg=195,bg=26'
 
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 case "$OSTYPE" in
 	# https://unix.stackexchange.com/a/446380/332452
 	darwin*)
+		# zsh-autosuggestions
+ 		source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 		# iterm2
 		test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
 		
@@ -456,10 +458,15 @@ case "$OSTYPE" in
 			### export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 			### export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
 		# }
-	;;
-		*)
+		;;
+	*)
+		# zsh-autosuggestions
+		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 	;;
 esac
+
+# Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 [ -z "$TMUX" ] && {
 	bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))

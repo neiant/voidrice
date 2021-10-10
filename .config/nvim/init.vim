@@ -120,6 +120,10 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+" 0.5+
+" TODO LSP
+"Plug 'https://github.com/neovim/nvim-lspconfig'
+
 """ TODO list:
 " https://github.com/romgrk/barbar.nvim
 " https://github.com/romgrk/winteract.vim
@@ -757,6 +761,10 @@ nnoremap <leader>l :!eslint % --fix<cr>
 
 " --- Highlight ---
 nnoremap <leader>h :set hlsearch!<cr>
+
+" --- nvim-lsp ---
+" TODO LSP
+"lua require'lspconfig'.bashls.setup{}
 
 " --- git-messenger---
 let g:git_messenger_always_into_popup = v:true

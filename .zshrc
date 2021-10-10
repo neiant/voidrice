@@ -403,10 +403,15 @@ bindkey -M menuselect '^M' .accept-line
 
 # https://github.com/okapia/zsh-viexchange
 [ -f "${ZDOTDIR}/zsh-viexchange/zsh-viexchange.plugin.zsh" ] && source "${ZDOTDIR}/zsh-viexchange/zsh-viexchange.plugin.zsh"
-zstyle 'zle:exchange' highlight 'fg=26,bg=195'
+# zstyle 'zle:exchange' highlight 'fg=26,bg=195'
+zstyle 'zle:exchange' highlight 'fg=195,bg=26'
+
+# note: sucks - do not use!
+#source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
 # Load zsh-syntax-highlighting; should be last. https://wiki.archlinux.org/index.php/Zsh#Fish-like-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 case "$OSTYPE" in
 	# https://unix.stackexchange.com/a/446380/332452

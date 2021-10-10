@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# #!/bin/sh
 
 # Toggle floating dropdown terminal in i3, or start if non-existing.
 # $1 is	the script run in the terminal.
@@ -21,7 +22,10 @@ shift
 }
 do_not_center=1 # never center if launching again
 
-if xwininfo -tree -root | grep "dropdown_$script" >/dev/null 2>&1
+# if xwininfo -tree -root | grep "dropdown_$script" >/dev/null 2>&1
+# if xdotool search --class '$script' >/dev/null 2>&1
+
+if xwininfo -tree -root | grep "dropdown_$script" >/dev/null 2>&1;
 then
 	echo "Window detected."
 
@@ -34,6 +38,22 @@ then
 		i3 "[instance=\"dropdown_$script\"] scratchpad show; [instance=\"dropdown_$script\"] move position center"
 		i3 "[class=\"dropdown_$script\"]    scratchpad show; [class=\"dropdown_$script\"]    move position center"
 	fi
+
+elif xdotool search --class "$script" >/dev/null 2>&1 
+then
+	# copy pasta
+	echo "Window detected (not dropdown_ tho)."
+	
+	if [ "$do_not_center" != "" ]; then
+		i3 "[title=\"$script\"]    scratchpad show;"
+		i3 "[instance=\"$script\"] scratchpad show;"
+		i3 "[class=\"$script\"]    scratchpad show;"
+	else
+		i3 "[title=\"$script\"]    scratchpad show; [title=\"$script\"]    move position center"
+		i3 "[instance=\"$script\"] scratchpad show; [instance=\"$script\"] move position center"
+		i3 "[class=\"$script\"]    scratchpad show; [class=\"$script\"]    move position center"
+	fi
+
 else
 	echo "Window not detected... spawning."
 

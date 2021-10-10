@@ -44,9 +44,9 @@ signal=8
 label=🏃
 interval=1800
 
-#[torrent]
-#interval=20
-#signal=7
+[torrent]
+interval=20
+signal=7
 
 #[weather]
 #interval=3600

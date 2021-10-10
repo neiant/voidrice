@@ -90,6 +90,10 @@ for_window [instance="dropdown_roam"]	resize set 872 1046
 for_window [class="dropdown_roam"]		resize set 872 1046
 for_window [title="dropdown_roam"]		resize set 872 1046
 
+for_window [instance="dropdown_qutebrowser"]	resize set 872 1046
+for_window [class="dropdown_qutebrowser"]		resize set 872 1046
+for_window [title="dropdown_qutebrowser"]		resize set 872 1046
+
 # finishing thoughts for general dropdowns
 for_window [instance="dropdown_*"]	move position center
 for_window [class="dropdown_*"]		move position center
@@ -163,7 +167,7 @@ client.unfocused        #333333 #111111 #111111 #292d2e   #222222
 # #---Mouse buttons---# #
 
 # https://github.com/tsoding/boomer
-bindsym $mod+m                 exec --no-startup-id "$HOME/forkprojects/boomer/boomer"
+bindsym $mod+m                 exec "$HOME/forkprojects/boomer/boomer"
 # bindsym --whole-window button9 exec --no-startup-id "$HOME/forkprojects/boomer/boomer"
 
 # #---Layouts---# #
@@ -222,7 +226,8 @@ bindsym $mod+Shift+e		exec --no-startup-id tutorialvids
 
 ##bindsym $mod+r 			exec $term -e lf
 # bindsym $mod+r			exec $term -e roam && pkill -RTMIN+6 i3blocks
-bindsym $mod+r			exec --no-startup-id ddspawn roam "run_directly" "do_not_center"
+#bindsym $mod+r			exec --no-startup-id ddspawn roam "run_directly" "do_not_center"
+bindsym $mod+r			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
 bindsym $mod+Shift+r		exec --no-startup-id winresize
 
 bindsym $mod+t			split toggle
@@ -246,7 +251,8 @@ bindsym $mod+Shift+i		exec --no-startup-id i3resize up
 bindsym $mod+o			exec --no-startup-id slack
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 
-bindsym $mod+p			exec --no-startup-id mpc toggle
+# bindsym $mod+p			exec --no-startup-id mpc toggle
+bindsym $mod+p			exec --no-startup-id ddspawn qutebrowser "run_directly"
 bindsym $mod+Shift+p		exec --no-startup-id mpc pause
 
 # st:

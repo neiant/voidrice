@@ -131,6 +131,8 @@ a() {
 }
 
 cr() { sudo vscodium --user-data-dir $HOME/.config/VSCodium/ --extensions-dir $HOME/.vscode-oss/extensions $* }
+vscr() { cr }
+vsr() { cr }
 
 # function is better than an alias
 # note - do NOT quote the '$*'!
@@ -215,6 +217,7 @@ gra() { g ra $* }
 grc() { g rc $* }
 grom() { g rom $* }
 griom() { hub riom $* }
+griomw() { g riomw $* }
 grium() { g rium $* }
 grmbp() { hub rmbp $* }
 gl() { hub l $* }
@@ -232,6 +235,8 @@ gadcaw() { hub adcaw $* }
 gadcawpf() { hub adcawpf $* }
 gadcawpfn() { hub adcawpfn $* }
 gadct() { hub adct $* }
+gadctpf() { hub adctpf $* }
+gadctpfre() { hub adctpfre $* }
 
 gag() { hub ag $* }
 gagc() { hub agc $* }
@@ -240,6 +245,8 @@ gagcaw() { hub agcaw $* }
 gagcawpf() { hub agcawpf $* }
 gagcawpfn() { hub agcawpfn $* }
 gagct() { hub agct $* }
+gagctpf() { hub agctpf $* }
+gagctpfre() { hub agctpfre $* }
 
 gap() { g ap $* }
 gadp() { g adp $* }
@@ -256,6 +263,9 @@ gprmee() { g prmee $* }
 gprmeed() { g prmeed $* }
 gprmeew() { g prmeew $* }
 gprmeedw() { g prmeedw $* }
+
+gsync() { hub sync $* }
+gsy() { gsync $* }
 
 # execute at the repository root!
 ge() { g e $* }
@@ -465,6 +475,18 @@ ba() { bat -P $* }
 
 doc() { docker-compose $* }
 
+shredr() {
+	DIR="$1"
+	shift
+	find "$DIR" -type f -exec shred $* {} \;
+	printf "$DIR"
+}
+
+shredrm() {
+	DIR="$(shredr $*)"
+	rm -rf -v "$DIR"
+}
+
 # generated with 'thefuck --alias'
 fuck () {
     TF_PYTHONIOENCODING=$PYTHONIOENCODING;
@@ -483,6 +505,21 @@ fuck () {
     test -n "$TF_CMD" && print -s $TF_CMD
 }
 
+pubwhat() {
+	yarn pack $* && tar -xvzf *.tgz | sed '/^package$/d; s@^package/@@g;' && rm -rf package *.tgz >/dev/null
+}
+
 # networking
 alias curla='curl -A "" -k -x 127.0.0.1:7777 '
+
+catt() {
+	local file_with_newline_path="/tmp/file-with-newline"
+
+	printf "\n" > "$file_with_newline_path"
+
+	cat $* "$file_with_newline_path"
+}
+
+catn()   { catt $* }
+catnl()  { catt $* }
 

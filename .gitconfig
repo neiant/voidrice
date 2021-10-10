@@ -120,6 +120,12 @@
 	adct     = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks 
 	agct     = !git add               .  && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks 
 
+	adctpf   = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify && git push -f --no-verify # --no-verify to ignore husky's hooks 
+	agctpf   = !git add               .  && git c -m "TEMP" --no-verify && git push -f --no-verify # --no-verify to ignore husky's hooks 
+
+	adctpfre = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify && git push -f --no-verify && git reset "@~" # --no-verify to ignore husky's hooks 
+	agctpfre = !git add               .  && git c -m "TEMP" --no-verify && git push -f --no-verify && git reset "@~" # --no-verify to ignore husky's hooks 
+
 	ap  = add --patch
 	adp = !git add --patch ${GIT_PREFIX:-.}
 	agp = !git add --patch               .
@@ -202,6 +208,7 @@
 	ra = rebase --abort
 	rom = rebase origin/master
 	riom = rebase -i origin/master
+	riomw = rom
 	rium = rebase -i upstream/master
 	rs = reset
 	rmbp = rmbackup

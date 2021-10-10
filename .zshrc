@@ -1,4 +1,6 @@
 
+# https://wiki.archlinux.org/title/zsh
+
 # measure boot time (see also the last line)
 bootTimeStart=$(date +%s%N)
 

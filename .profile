@@ -207,6 +207,11 @@ export MOZCONFIG="$HOME/.config/mozilla/mozconfig"
 # https://github.com/aitjcize/cppman/issues/84#issuecomment-763265258
 ## export MANPATH="${XDG_DATA_HOME}/man"
 
+# global imports
+# see https://stackoverflow.com/a/15646750/9285308
+# and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
+export NODE_PATH="$(yarn global dir)"
+
 # disable emoji in minikube
 export MINIKUBE_IN_STYLE=false
 

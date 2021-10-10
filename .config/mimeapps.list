@@ -14,6 +14,7 @@ text/x-c++src=nvim.desktop;vim.desktop;
 application/x-shellscript=nvim.desktop;
 application/zip=org.gnome.Nautilus.desktop;file.desktop;
 inode/directory=org.gnome.Nautilus.desktop;
+application/vscode=com.vscode.desktop;
 
 [Default Applications]
 text/x-shellscript=text.desktop;

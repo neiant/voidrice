@@ -13,7 +13,7 @@ Plug 'https://github.com/tpope/vim-rsi'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
@@ -90,6 +90,7 @@ Plug 'https://github.com/simnalamburt/vim-mundo'
 Plug 'https://github.com/RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " Plug 'https://github.com/justinmk/vim-sneak'
 Plug 'https://github.com/mbbill/undotree'
+Plug 'https://github.com/rhysd/git-messenger.vim'
 
 Plug 'https://github.com/phaazon/hop.nvim'
 
@@ -307,7 +308,7 @@ set completefunc=emoji#complete
 
 
 " Goyo plugin makes text more readable when writing prose:
-	map <leader>g :Goyo \| set bg=light \| set linebreak<CR>
+	" map <leader>g :Goyo \| set bg=light \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	"map <leader>o :setlocal spell! spelllang=en_us<CR>
@@ -750,3 +751,14 @@ hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 
 " --- UndoTree ---
 nnoremap <F5> :UndotreeToggle<CR>
+
+" --- Lint ---
+nnoremap <leader>l :!eslint % --fix<cr>
+
+" --- Highlight ---
+nnoremap <leader>h :set hlsearch!<cr>
+
+" --- git-messenger---
+let g:git_messenger_always_into_popup = v:true
+nmap <leader>gg <Plug>(git-messenger)
+

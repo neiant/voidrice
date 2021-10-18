@@ -162,7 +162,7 @@ sudo -n loadkeys ~/.local/share/larbs/ttymaps.kmap 2>/dev/null
 
 # gpg stuff
 # https://bbs.archlinux.org/viewtopic.php?pid=1490821#p1490821
-export GPG="gpg2"
+###export GPG="gpg2" # NO NEED, KEEP DISABLED UNLES U KNOW WHAT UR DOING
 export GPG_TTY=$(tty)
 export GPG_AGENT_INFO="_" # set to non-empty to avoid the check in /usr/bin/pass
 #eval $(keychain --eval -Q --quiet id_rsa)

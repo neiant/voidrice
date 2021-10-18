@@ -12,8 +12,9 @@
 	username = kiprasmel
 	name = Kipras Melnikovas
 	email = kipras@kipras.org
+	# see aliasrc - uses $GPG_SIGNING_KEY instead
 	# signingkey = AA505BC1C6D8AD90 # arch
-	signingkey = 157102AFA5DF13F5 # osx
+	# signingkey = 157102AFA5DF13F5 # osx
 [core]
 	# editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
 	# editor = '/usr/bin/env code' --new-window --wait

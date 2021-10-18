@@ -26,7 +26,6 @@ alias ka="killall" \
 	SS="sudo systemctl" \
 	sd="shutdown" \
 	sad="shutdown 0" \
-	config="hub --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" \
 	co="config" \
 	cl="clipboard" \
 	d="docker" \
@@ -141,25 +140,45 @@ vsr() { cr }
 # note - do NOT quote the '$*'!
 # (allows better auto-completions & compatibility etc)
 # see https://github.com/tj/git-extras/issues/797
-git() {
-	hub $*
+#
+# see also https://stackoverflow.com/a/6992428/9285308
+# if interested why we're putting arguments in arrays
+#
+__gitwrap() {
+	[ -n "$GPG_SIGNING_KEY" ] && local EXTRA_ARGS=("-c" "user.signingkey=$GPG_SIGNING_KEY")
+
+	local GIT_CLI
+	if command -v hub >/dev/null; then
+		GIT_CLI=("/usr/bin/env" "hub")
+	else
+		GIT_CLI=("/usr/bin/env" "git")
+	fi
+
+	[ -n "$SHOW_GIT_CMD" ] && echo \
+	"${GIT_CLI[@]} ${EXTRA_ARGS[@]} $* \n"
+
+	${GIT_CLI[@]} ${EXTRA_ARGS[@]} $*
 }
 
-# compdef is needed for auto-completions,
-# since I'm using `git`, `hub` and `git-extras`
+git() {
+	__gitwrap $*
+}
 compdef git="hub"
 
 g() {
-	hub $*
+	__gitwrap $*
 }
-
 compdef g="hub"
 
 gnp() {
-	hub --no-pager $*
+	__gitwrap --no-pager $*
 }
+compdef gnp="hub"
 
-compdef gr="hub"
+config() {
+	__gitwrap --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $*
+}
+compdef config="hub"
 
 # Fast clipboard copying
 # -r removes the last newline! https://stackoverflow.com/a/43830018/9285308

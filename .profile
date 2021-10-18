@@ -220,6 +220,7 @@ case "$OSTYPE" in
   solaris*) echo "SOLARIS" ;;
   darwin*)
 	  	# echo "OSX"
+		export GPG_SIGNING_KEY="157102AFA5DF13F5" # osx
 
 		# nvm - only on work
 		export NVM_DIR="$HOME/.config/nvm"
@@ -255,6 +256,8 @@ case "$OSTYPE" in
 		export PATH="${XDG_CONFIG_HOME:-$HOME/.config}/yabai/scripts:$PATH"
 	  ;; 
   linux*)   #echo "LINUX" ;;
+		export GPG_SIGNING_KEY="AA505BC1C6D8AD90" # arch
+
   		;;
   bsd*)     #echo "BSD" ;;
   		;;

@@ -152,12 +152,6 @@ ex=🎯:\
 
 [ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ] && shortcuts >/dev/null 2>&1 &
 
-# Start graphical server on tty1 if not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! ps -e | grep -qw Xorg && exec startx
-
-# Switch escape and caps if tty and no passwd required:
-sudo -n loadkeys ~/.local/share/larbs/ttymaps.kmap 2>/dev/null
-
 # Various bs
 
 # gpg stuff
@@ -254,8 +248,9 @@ case "$OSTYPE" in
 
 		# add yabai (wm) scripts
 		export PATH="${XDG_CONFIG_HOME:-$HOME/.config}/yabai/scripts:$PATH"
-	  ;; 
-  linux*)   #echo "LINUX" ;;
+  		;;
+  linux*) 
+	  	#echo "LINUX" ;;
 		export GPG_SIGNING_KEY="AA505BC1C6D8AD90" # arch
 
   		;;
@@ -271,4 +266,24 @@ esac
 # see https://stackoverflow.com/a/15646750/9285308
 # and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
 export NODE_PATH="$(yarn global dir)"
+
+case "$OSTYPE" in
+  solaris*) ;;
+  darwin*) ;;
+  linux*) 
+		# Switch escape and caps if tty and no passwd required:
+		sudo -n loadkeys ~/.local/share/larbs/ttymaps.kmap 2>/dev/null
+
+		# MUST BE LAST:
+		# Start graphical server on tty1 if not already running.
+		[ "$(tty)" = "/dev/tty1" ] && ! ps -e | grep -qw Xorg && exec startx
+
+  		;;
+  bsd*) ;;
+  msys*) ;;
+  *) ;;
+esac
+##                              ##
+## DO NOT ADD STUFF BELOW THIS  ##
+##                              ##
 

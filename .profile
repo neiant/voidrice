@@ -267,6 +267,8 @@ esac
 # and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
 export NODE_PATH="$(yarn global dir)"
 
+[ -f ~/yarn-completion.bash ] && source ~/yarn-completion.bash
+
 case "$OSTYPE" in
   solaris*) ;;
   darwin*) ;;

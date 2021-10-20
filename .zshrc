@@ -252,6 +252,7 @@ lfcd () {
     fi
 }
 #bindkey -s '^o' 'lfcd\n'
+bindkey -s '^g' 'lfcd\n'
 
 bindkey -s -M viins '^w' 'exit\n'
 bindkey -s -M vicmd '^w' 'exit\n'

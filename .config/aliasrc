@@ -85,9 +85,9 @@ alias \
 	mv="mv -v" \
 	rm="rm -v" \
 	mkd="mkdir -pv" \
-	yt="youtube-dl --add-metadata -i" \
 	yta="yt -x -f bestaudio/best" \
 	ffmpeg="ffmpeg -hide_banner"
+	#yt="youtube-dl --add-metadata -i" \
 
 # Colorize commands when possible.
 alias \
@@ -210,6 +210,7 @@ gso() { __gitwrap so $* }
 gd() { __gitwrap d $* }
 gds() { __gitwrap ds $* }
 gdd() { __gitwrap dd $* }
+gg() { __gitwrap s $* }
 ggg() { __gitwrap s $* }
 gggg() { __gitwrap s $* }
 ggggg() { __gitwrap s $* }
@@ -299,7 +300,7 @@ gsy() { gsync $* }
 ge() { __gitwrap e $* }
 e()  { __gitwrap e $* }
 gmake() { ge make $* }
-gg() { gmake $* }
+# gg() { gmake $* }
 ggs() { gmake test $* }
 
 # git done.
@@ -329,6 +330,7 @@ yb() { y build $* }
 yw() { y watch $* }
 ya() { y add $* }
 yr() { y rm $* }
+yt() { y test $* }
 
 yg() { y global $* }
 yga() { y global add $* }

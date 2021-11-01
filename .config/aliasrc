@@ -218,6 +218,9 @@ s() { __gitwrap s $* }
 gcl() { __gitwrap cl $* }
 gp() { __gitwrap p $* }
 gpa() { __gitwrap pa $* }
+gpar() { __gitwrap par $* }
+gparw() { __gitwrap parw $* }
+gpad() { __gitwrap pad $* }
 gpp() { __gitwrap pp $* }
 gpl() { __gitwrap pl $* }
 gf() { __gitwrap f $* }

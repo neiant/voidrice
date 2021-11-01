@@ -202,8 +202,9 @@
 	pl = pull
 	pa = !git -c core.pager='' diff -u                      # "patch"
 	par = !git pa | grep '^[+-]'
-	parw = !git par | wc -l
+	parw = !git par | wc
 	paw = parw
+	pad = parw
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO

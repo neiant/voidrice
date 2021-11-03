@@ -221,6 +221,7 @@ gpa() { __gitwrap pa $* }
 gpar() { __gitwrap par $* }
 gparw() { __gitwrap parw $* }
 gpad() { __gitwrap pad $* }
+gdpad() { __gitwrap dpad $* }
 gpp() { __gitwrap pp $* }
 gpl() { __gitwrap pl $* }
 gf() { __gitwrap f $* }
@@ -235,7 +236,8 @@ gcawpf() { __gitwrap cawpf $* }
 gcawpfn() { __gitwrap cawpfn $* }
 gco() {  __gitwrap co $* }
 gcod() {  __gitwrap cod $* }
-gcom() { __gitwrap co master $* }
+gcom() { __gitwrap com $* }
+gcof() { __gitwrap cof $* }
 gcob() { __gitwrap co -b $* }
 gb() { __gitwrap b $* }
 gbd() { __gitwrap bd $* }
@@ -247,7 +249,9 @@ gra() { __gitwrap ra $* }
 grc() { __gitwrap rc $* }
 grom() { __gitwrap rom $* }
 griom() { __gitwrap riom $* }
+griof() { __gitwrap riof $* }
 griomw() { __gitwrap riomw $* }
+griofw() { __gitwrap riofw $* }
 grium() { __gitwrap rium $* }
 grmbp() { __gitwrap rmbp $* }
 gl() { __gitwrap l $* }

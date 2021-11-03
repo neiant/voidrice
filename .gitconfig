@@ -156,6 +156,7 @@
 	#co = !git stash -u && git checkout
 	cod = checkout dev
 	com = checkout master
+	cof = checkout fork
 	cfg = config --global --edit
 	cs = !clear && git status
 	csl = !clear && git sl
@@ -205,6 +206,7 @@
 	parw = !git par | wc
 	paw = parw
 	pad = parw
+	dpad = pad
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
@@ -222,8 +224,11 @@
 	ri = rebase -i
 	ra = rebase --abort
 	rom = rebase origin/master
+	rof = rebase origin/fork
 	riom = rebase -i origin/master
+	riof = rebase -i origin/fork
 	riomw = rom
+	riofw = rof
 	rium = rebase -i upstream/master
 	rs = reset
 	rmbp = rmbackup

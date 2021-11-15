@@ -528,6 +528,11 @@ shredr() {
 		return 1
 	}
 	! [ -d "$DIR" ] && {
+		[ -f "$DIR" ] && {
+			shred -zxfun30 "$DIR"
+			return 0
+		}
+
 		printf "DIR doesn't exist! (got \"$DIR\")\n"
 		return 1
 	}

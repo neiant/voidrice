@@ -73,7 +73,6 @@ alias ka="killall" \
 	py="python" \
 	acl="arduino-cli" \
 	ac="arduino-cli" \
-	esl="eslint --ext js,jsx,ts,tsx" \
 	lol="sudo sh -c 'echo \"abi.vsyscall32 = 0\" >> /etc/sysctl.conf && sysctl -p;'" \
 	ws="wifi-check" \
 	wr="wifi-restart"
@@ -221,6 +220,7 @@ gpa() { __gitwrap pa $* }
 gpar() { __gitwrap par $* }
 gparw() { __gitwrap parw $* }
 gpad() { __gitwrap pad $* }
+gpadd() { __gitwrap padd $* }
 gdpad() { __gitwrap dpad $* }
 gpp() { __gitwrap pp $* }
 gpl() { __gitwrap pl $* }
@@ -342,7 +342,7 @@ yt() { y test $* }
 yg() { y global $* }
 yga() { y global add $* }
 
-x() {
+rr() {
 	cputils $*
 }
 
@@ -461,6 +461,7 @@ mkv() {
 	$EDITOR "$@"
 }
 
+esl() { eslint --ext js,jsx,ts,tsx $* }
 eslf() { esl $* --fix }
 esldf() { esl . --fix }
 eslfd() { esl . --fix }

@@ -223,9 +223,28 @@ case "$OSTYPE" in
 		# end nvm
 
 		command -v "/usr/local/bin/ssh-askpass" &>/dev/null || { echo "please install https://github.com/theseal/ssh-askpass"; exit 1 }
-		SUDO_ASKPASS="/usr/local/bin/ssh-askpass"
+		export SUDO_ASKPASS="/usr/local/bin/ssh-askpass"
 
-		export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+		# BEGIN PYTHON
+
+		# do manually:
+		# brew install pyenv
+		# pyenv install 3.9.7 (atm)
+		# pyenv global 3.9.7
+		# restart
+
+		#export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+		#export PATH="$PATH:$HOME/Library/Python/3.8/bin"
+		#export PATH="$PATH:/usr/local/opt/python@3.9/libexec/bin"
+
+		# https://opensource.com/article/19/5/python-3-default-mac
+		if command -v pyenv 1>/dev/null 2>&1; then
+		  #eval "$(pyenv init -)"
+		  eval "$(pyenv init --path)"
+		fi
+		# export PATH="$PATH:$HOME/Library/Python/3.8/bin"
+
+		# END PYTHON
 	  
 		# see https://stackoverflow.com/a/57973942/9285308
 		# make GNU commands available
@@ -241,7 +260,7 @@ case "$OSTYPE" in
  		# export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
 		
 		export PATH="/Applications/Firefox Developer Edition.app/Contents/MacOS/:$PATH"
-		BROWSER="/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox" # additional escape characters apparently still needed because of later evaluation
+		export BROWSER="/Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox" # additional escape characters apparently still needed because of later evaluation
 
 		#export PATH="/Applications/Google Chrome.app/Contents/MacOS:$PATH"
 		#BROWSER="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" # additional escape characters apparently still needed because of later evaluation

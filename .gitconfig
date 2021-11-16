@@ -165,6 +165,8 @@
 	dg = !git diff .
 	df = diff FETCH_HEAD
 	ds = diff --staged
+	dst = diff --stat
+	dss = dst
 	e = exec
 	exec = "!exec " # exec script at root of repo!
 					# this is useful in case you're deep in the repo
@@ -205,8 +207,11 @@
 	par = !git pa | grep '^[+-]'
 	parw = !git par | wc
 	paw = parw
-	pad = parw
+	pad = padd
 	dpad = pad
+	# padd - could use git --(short)stat, but meh!
+	# padd = !printf \"+$(git pa | grep '^+[^+]' | wc -l)\\n-$(git pa | grep '^-[^-]' | wc -l)\\n=$(git pa | grep '^[+-][^+-]' | wc -l)\\n\"
+	padd = !printf \"+$(git pa $* | grep -v '^+++' | grep '^+' | wc -l)\\n-$(git pa $* | grep -v '^---' | grep '^-' | wc -l)\\n±$(git pa $* | grep -v '^+++' | grep -v '^---' | grep '^[+-]' | wc -l)\\n\"
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO

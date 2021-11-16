@@ -15,6 +15,9 @@ case "$OSTYPE" in
 		# make gnu date (gdate) take over osx date
 		export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
+		# TODO fix on vscode
+		eval "$(pyenv init -)"
+
 		# export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
 		;;
 	*) 

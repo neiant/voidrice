@@ -206,6 +206,9 @@ export MOZCONFIG="$HOME/.config/mozilla/mozconfig"
 # disable emoji in minikube
 export MINIKUBE_IN_STYLE=false
 
+# DBs
+export KEEPASS_DB="$HOME/private/keepassxc-passwords.kdbx"
+
 # work
 export PIPEDRIVE_GIT_DIR="$HOME/fun"
 

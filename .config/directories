@@ -43,7 +43,7 @@ prip ~/privateprojects/interactio/panel
 sw ~/privateprojects/sioko-cpp/
 sn ~/projects/snitch-latest-car
 tt	~/projects/turbo-schedule
-rr	~/projects/roam-traverse-graph
+rtg	~/projects/roam-traverse-graph
 notes	~/projects/notes
 tw  ~/learnprojects/tailwindcss
 xs  ~/projects/xstate-cpp

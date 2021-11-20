@@ -201,17 +201,24 @@
 	p = push --follow-tags
 	pp = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\"" # hella neat! automatically sets upstream
 	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
-	# pa = push --all                                         # meh
 	pl = pull
-	pa = !git -c core.pager='' diff -u                      # "patch"
-	par = !git pa | grep '^[+-]'
-	parw = !git par | wc
-	paw = parw
-	pad = padd
-	dpad = pad
-	# padd - could use git --(short)stat, but meh!
-	# padd = !printf \"+$(git pa | grep '^+[^+]' | wc -l)\\n-$(git pa | grep '^-[^-]' | wc -l)\\n=$(git pa | grep '^[+-][^+-]' | wc -l)\\n\"
-	padd = !printf \"+$(git pa $* | grep -v '^+++' | grep '^+' | wc -l)\\n-$(git pa $* | grep -v '^---' | grep '^-' | wc -l)\\n±$(git pa $* | grep -v '^+++' | grep -v '^---' | grep '^[+-]' | wc -l)\\n\"
+
+	# patch from ref to HEAD + uncommited changes
+	patch = !git -c core.pager='' diff -u
+	pa = patch
+
+	# patch of only the ref
+	patchonly = !git -c core.pager='' show -u --raw            
+	pao = patchonly
+
+	# stats (+, -, ±) from ref to HEAD + uncommited changes
+	pad = !printf \"+$(git pa $* | grep -v '^+++' | grep '^+' | wc -l)\\n-$(git pa $* | grep -v '^---' | grep '^-' | wc -l)\\n±$(git pa $* | grep -v '^+++' | grep -v '^---' | grep '^[+-]' | wc -l)\\n\"
+
+	# stats (+, -, ±) of only the ref (same as pad, but s/pa/pao/g)
+	paod = !printf \"+$(git pao $* | grep -v '^+++' | grep '^+' | wc -l)\\n-$(git pao $* | grep -v '^---' | grep '^-' | wc -l)\\n±$(git pao $* | grep -v '^+++' | grep -v '^---' | grep '^[+-]' | wc -l)\\n\"
+
+	pado = paod
+
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO

@@ -220,8 +220,8 @@ gpa() { __gitwrap pa $* }
 gpar() { __gitwrap par $* }
 gparw() { __gitwrap parw $* }
 gpad() { __gitwrap pad $* }
-gpadd() { __gitwrap padd $* }
-gdpad() { __gitwrap dpad $* }
+gpado() { __gitwrap pado $* }
+gpaod() { __gitwrap pado $* }
 gpp() { __gitwrap pp $* }
 gpl() { __gitwrap pl $* }
 gf() { __gitwrap f $* }
@@ -587,5 +587,9 @@ xfind() {
 
 xlsattr() {
 	/bin/ls -lOa $*
+}
+
+grepi() {
+	grep -i $*
 }
 

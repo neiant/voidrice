@@ -53,6 +53,8 @@
 [rebase]
 	missingCommitsCheck = warn
 	#autostash = true # you cannot access it from the stash which sucks
+
+	abbreviateCommands = true
 [pull]
 	rebase = true
 	ff = yes

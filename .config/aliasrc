@@ -120,6 +120,9 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 ### https://github.com/nvbn/thefuck
 ### eval $(thefuck --alias)
 
+# Utility variables
+export nv=--no-verify
+
 # Functions & stuff
 
 ee() {
@@ -265,6 +268,7 @@ ga() { __gitwrap a $* }
 
 gad() { __gitwrap ad $* }
 gadc() { __gitwrap adc $* }
+gadcn() { __gitwrap adcn $* }
 gadca() { __gitwrap adca $* }
 gadcaw() { __gitwrap adcaw $* }
 gadcawpf() { __gitwrap adcawpf $* }
@@ -275,6 +279,7 @@ gadctpfre() { __gitwrap adctpfre $* }
 
 gag() { __gitwrap ag $* }
 gagc() { __gitwrap agc $* }
+gagcn() { __gitwrap agcn $* }
 gagca() { __gitwrap agca $* }
 gagcaw() { __gitwrap agcaw $* }
 gagcawpf() { __gitwrap agcawpf $* }
@@ -583,6 +588,10 @@ xfind() {
 	local DEPTH="$1"
 	shift
 	find . -type f -maxdepth $DEPTH -name $*
+}
+
+renamets() {
+	find . -type f -name '*.js' | grep -v node_modules | cut -d'.' -f2 | xargs -I{} mv ".{}.js" ".{}.ts"
 }
 
 xlsattr() {

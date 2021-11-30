@@ -47,6 +47,7 @@
 [commit]
 	verbose = true
 	gpgSign = true
+	#gpgSign = false
 [merge]
 	ff = no
 	tool = code
@@ -116,6 +117,8 @@
 
 	adc      = !git add ${GIT_PREFIX:-.} && git c
 	agc      = !git add               .  && git c
+	adcn      = !git add ${GIT_PREFIX:-.} && git c --no-verify
+	agcn      = !git add               .  && git c --no-verify
 
 	adca     = !git add ${GIT_PREFIX:-.} && git ca
 	agca     = !git add               .  && git ca

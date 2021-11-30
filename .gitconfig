@@ -54,7 +54,12 @@
 	missingCommitsCheck = warn
 	#autostash = true # you cannot access it from the stash which sucks
 
-	abbreviateCommands = true
+	# vim's `ce` cuts the commit (biggest reason),
+	# also could be issue of not being familiar
+	# if shown to someone else
+	# (i myself feel like its unfamiliar lol)
+	#abbreviateCommands = true # meh!
+	abbreviateCommands = false
 [pull]
 	rebase = true
 	ff = yes

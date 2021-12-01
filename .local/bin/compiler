@@ -27,7 +27,11 @@ case "$file" in
 	*\.c) cc "$file" -o "$base" && "$base" ;;
 	*\.cpp) cputils-run -a "-DDEBUG" "$file" -f  ;;
 	*\.txt) cputils-run -a "-DDEBUG" "$file" -f  ;; # might run from the input file, thus aliasing
-	*\.js) node "$file" ;;
+	*\.js)
+		if [ -f "$file.txt" ]; then cat "$file.txt" | node "$file"
+		else node "$file"
+		fi
+		;;
 	*\.ts) ts-node-dev "$file" ;;
 	*\.py) python "$file" ;;
 	*\.go) go run "$file" ;;

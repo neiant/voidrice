@@ -254,8 +254,8 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-#bindkey -s '^o' 'lfcd\n'
-bindkey -s '^g' 'lfcd\n'
+bindkey -s '^o' 'lfcd\n'
+#bindkey -s '^g' 'lfcd\n'
 
 bindkey -s -M viins '^w' 'exit\n'
 bindkey -s -M vicmd '^w' 'exit\n'
@@ -343,13 +343,15 @@ fi
 
 # C-a for end of line, C-i for beginning of line (just like vi)
 
-bindkey -- '^o' beginning-of-line
-bindkey -M viins -- '^o' beginning-of-line
-bindkey -M vicmd -- '^o' beginning-of-line
+# used for file manager
+#bindkey -- '^o' beginning-of-line
+#bindkey -M viins -- '^o' beginning-of-line
+#bindkey -M vicmd -- '^o' beginning-of-line
 
-bindkey -- '^a' end-of-line
-bindkey -M vicmd -- '^a' end-of-line
-bindkey -M viins -- '^a' end-of-line
+# used in tmux
+#bindkey -- '^a' end-of-line
+#bindkey -M vicmd -- '^a' end-of-line
+#bindkey -M viins -- '^a' end-of-line
 
 ###
 

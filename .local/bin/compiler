@@ -28,8 +28,27 @@ case "$file" in
 	*\.cpp) cputils-run -a "-DDEBUG" "$file" -f  ;;
 	*\.txt) cputils-run -a "-DDEBUG" "$file" -f  ;; # might run from the input file, thus aliasing
 	*\.js)
-		if [ -f "$file.txt" ]; then cat "$file.txt" | node "$file"
-		else node "$file"
+		# replaces filename of dots into first & last segment,
+		# so that the original .txt file can be used.
+		#
+		# e.g.:
+		# /foo/bar/1.js                                         -> /foo/bar/1.js
+		# /foo/bar/1.functional.js                              -> /foo/bar/1.js
+		# /foo/bar/1.a.b.c.d.e.f.js                             -> /foo/bar/1.js
+		# /foo/bar.troll/1.a.b.c.d.e.f.js                 -> /foo/bar.troll/1.js
+		# /foo/bar.troll.tryhard/1.a.b.c.d.e.f.js -> /foo/bar.troll.tryhard/1.js
+		#
+		#node -pe "'$file'.split('.').copyWithin(1, -1).slice(0, 2).join('.')"
+		#node -pe "'$file'.split('.').copyWithin(1, -1).slice(0, 2).join('.')"
+		file_midless="$(printf "$file" | sed -E 's/(\w)\.[^/]*(\.\w*)$/\1\2/g' )"
+
+		# instead of 1.js.txt, we can use 1.txt as well.
+		file_midless_extless="$(printf "$file_midless" | sed -E 's/(\w*)\.\w*$/\1/g' )"
+
+		if [ -f "$file.txt" ];                   then cat "$file.txt"                 | node "$file"
+		elif [ -f "$file_midless.txt" ];         then cat "$file_midless.txt"         | node "$file"
+		elif [ -f "$file_midless_extless.txt" ]; then cat "$file_midless_extless.txt" | node "$file"
+		else                                                                            node "$file"
 		fi
 		;;
 	*\.ts) ts-node-dev "$file" ;;

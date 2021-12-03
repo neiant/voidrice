@@ -23,6 +23,9 @@
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	longpaths = true
 	ignorecase = true
+	logAllRefUpdates = true # gitassembly
+[rerere]
+	enable = true # gitassembly
 [imap]
 	host = mail.kipras.org
 	user = kipras@kipras.org
@@ -109,6 +112,10 @@
 	# 
 	#
 	fn = "!f() { echo \"hi\"; }; f;"
+
+	# https://gitlab.com/wavexx/git-assembler
+	# https://www.thregr.org/%7Ewavexx/software/git-assembler/
+	as = assembler
 
 	a        = add
 

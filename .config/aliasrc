@@ -623,7 +623,6 @@ difb() {
 	/usr/bin/env diff -u -b "$1" "$2" | diff-so-fancy
 }
 
-
 off() {
 	file="$1"
 

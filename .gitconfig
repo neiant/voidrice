@@ -302,7 +302,6 @@
 
 	#q =
 	r = rebase
-	# https://github.com/kiprasmel/git-stacked-rebase
 	rr = stacked-rebase
 	rc = rebase --continue
 	ri = rebase -i
@@ -314,6 +313,7 @@
 	riomw = rom
 	riofw = rof
 	rium = rebase -i upstream/master
+
 	#
 	# stacked diffs in git
 	#

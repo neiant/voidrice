@@ -120,8 +120,15 @@ alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 ### https://github.com/nvbn/thefuck
 ### eval $(thefuck --alias)
 
+
+
 # Utility variables
+# not meant to be used in scripts, rather - directly in the command line
+# as a shortcut,
+# e.g.: git push $nv
 export nv=--no-verify
+
+
 
 # Functions & stuff
 
@@ -209,6 +216,7 @@ cop() { config p $* }
 coc() { config c $* }
 cod() { config d $* }
 gso() { __gitwrap so $* }
+gsod() { __gitwrap sod $* }
 gd() { __gitwrap d $* }
 gds() { __gitwrap ds $* }
 gdd() { __gitwrap dd $* }
@@ -247,6 +255,7 @@ gbd() { __gitwrap bd $* }
 gba() { __gitwrap ba $* }
 gbt() { __gitwrap bt $* }
 gr() { __gitwrap r $* }
+grr() { __gitwrap rr $* }
 gri() { __gitwrap ri $* }
 gra() { __gitwrap ra $* }
 grc() { __gitwrap rc $* }
@@ -600,5 +609,36 @@ xlsattr() {
 
 grepi() {
 	grep -i $*
+}
+
+dif() {
+	/usr/bin/env diff -u "$1" "$2" | diff-so-fancy
+}
+
+
+off() {
+	file="$1"
+
+	[ -z "$file" ] && {
+		printf "off <file>\n"
+		return 1
+	}
+
+	if ! [ -f "$file" ]; then
+		[ -f "$file.off" ] && {
+			printf "already off. enable? [Y/n] "
+			read -r ans
+
+			if [ -z "$ans" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
+				mv -v "$file.off" "$file"
+			else
+				return 0
+			fi
+		}
+	else
+		mv -v "$file" "$file.off"
+	fi
+
+	return 0
 }
 

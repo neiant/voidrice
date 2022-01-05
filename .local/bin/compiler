@@ -45,11 +45,29 @@ case "$file" in
 		# instead of 1.js.txt, we can use 1.txt as well.
 		file_midless_extless="$(printf "$file_midless" | sed -E 's/(\w*)\.\w*$/\1/g' )"
 
-		if [ -f "$file.txt" ];                   then cat "$file.txt"                 | node "$file"
-		elif [ -f "$file_midless.txt" ];         then cat "$file_midless.txt"         | node "$file"
-		elif [ -f "$file_midless_extless.txt" ]; then cat "$file_midless_extless.txt" | node "$file"
-		else                                                                            node "$file"
+
+		if [ -f "$file.txt" ]; then f="$file.txt"
+		elif [ -f "$file_midless.txt" ]; then f="$file_midless.txt"
+		elif [ -f "$file_midless_extless.txt" ]; then f="$file_midless_extless.txt"
 		fi
+
+		# todo backport to all?
+		#
+		# todo args also for the executor, and then for the program itself,
+		# on 1st line & 2nd line of file?
+		#
+		if [ -f "$file.args" ]; then
+			args="$(cat "$file.args")"
+
+			echo "args $args"
+
+			if [ -f "$f" ]; then cat "$f" | node "$file" $args; else node "$file" $args; fi
+		else
+			echo "no args"
+			
+			if [ -f "$f" ]; then cat "$f" | node "$file"      ; else node "$file"      ; fi
+		fi
+
 		;;
 	*\.ts) ts-node-dev "$file" ;;
 	*\.py) python "$file" ;;

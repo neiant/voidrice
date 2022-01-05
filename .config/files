@@ -29,4 +29,5 @@ docs ~/.local/share/larbs/readme.mom
 cfs ~/.ssh/config
 
 pg  ${HOME}/LARBS/progs.csv
+progs  ${HOME}/LARBS/progs.csv
 

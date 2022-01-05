@@ -54,6 +54,9 @@
 [merge]
 	ff = no
 	tool = code
+[stackedrebase]
+	autoApplyIfNeeded = true
+	#autoApplyIfNeeded = false
 [rebase]
 	missingCommitsCheck = warn
 	#autostash = true # you cannot access it from the stash which sucks
@@ -155,6 +158,34 @@
 	b = branch
 	ba = branch --all
 	bt = branch --track
+	bso = branch --show-current
+	sob = branch --show-current
+
+	# begin: git-assembler & stacked diffs
+	# a few aliases for comparing if pushing our branch is safe,
+	# and easily seeing if we added anything new, compared to what our parent added.
+
+	# show branch's diff
+	sobd = !git diff "origin"/"$(git sob)" $*
+	sod = sobd
+	# show branch's diff (parent branch's)
+	sobdp = !git diff "origin"/"$(git parent)" "$(git parent)" $*
+	sodp = sobdp
+
+	dp = !git diff "$(git parent)" $*
+	dps = !git dp --stat $*
+
+	sodd = comparebd
+	# compare our branch to origin diff, to parent's branch to origin diff
+	comparebdraw = "!f() { C=/tmp/current-branch; P=/tmp/parent-branch; git sobd | grep '^[+-]' > $C.diff; git sobdp | grep '^[+-]' > $P.diff; diff -u $P.diff $C.diff; }; f;"
+	comparebd = !git comparebdraw | diff-so-fancy | less
+	compared = comparebd
+	compd = comparebd
+
+	#sopbd = !git diff "$(git parent 2>/dev/null)"
+
+	# end: git-assembler & stacked diffs
+
 	bd = delete-branch # git-extras
 	bp = backup
 	backup = !git-backup # remote script, availabe @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-backup
@@ -182,6 +213,7 @@
 	dg = !git diff .
 	df = diff FETCH_HEAD
 	ds = diff --staged
+	dds = !git diff --staged ${GIT_PREFIX:-.}
 	dst = diff --stat
 	dss = dst
 	e = exec
@@ -205,8 +237,14 @@
 	#i =
 	#j =
 	#k =
-	l = lg
+
+	# man git-log
+	#   "--format"
+	#   "PRETTY FORMATS"
+	#
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %G?' --abbrev-commit
+	l = lg
 	lgp = lg --patch
 	ls = lg --stat
 	lgs = ls
@@ -236,6 +274,9 @@
 
 	pado = paod
 
+	# stats (compared to the parent branch)
+	padp = !git pad "$(git parent)"
+
 	ppr = pull-request # requires 'hub'
 	dpr = pull-request -d
 	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
@@ -246,9 +287,14 @@
 	prmedw = !hub prmed --no-edit
 	prmeedw = !hub prmeed --no-edit
 	#prmeed = !git pull-request -a kiprasmel  --base "${$(git config --global --get user.username):-kiprasmel}":master -depo # targets local repo
-	parent = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
+	parent = !git parentraw 2>/dev/null
+	parentraw = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
+
 	#q =
 	r = rebase
+	# https://github.com/kiprasmel/git-stacked-rebase
+	rr = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
+	# rr = stacked-rebase
 	rc = rebase --continue
 	ri = rebase -i
 	ra = rebase --abort
@@ -259,6 +305,15 @@
 	riomw = rom
 	riofw = rof
 	rium = rebase -i upstream/master
+	#
+	# stacked diffs in git
+	#
+	# https://github.com/kiprasmel/git-stacked-rebase
+	# https://www.npmjs.com/package/git-stacked-rebase
+	stacked-rebase = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
+	stacked-rebase-prod = !npx git-stacked-rebase
+	rr = stacked-rebase
+
 	rs = reset
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
@@ -285,4 +340,7 @@
 	#x =
 	#y =
 	#z =
+	stacked-rebase = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
+	stacked-rebase-prod = !npx git-stacked-rebase
+	rr = stacked-rebase
 

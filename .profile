@@ -27,7 +27,7 @@ export PATH="$PATH:$HOME/forkprojects/boomer"
 # Default programs:
 export EDITOR="nvim"
 export REACT_EDITOR="vscodium"
-export SUDO_EDITOR="nvim"
+export SUDO_EDITOR="vi"
 export TERMINAL="st"
 # export TERMINAL="alacritty"
 export BROWSER="firefox-developer-edition"

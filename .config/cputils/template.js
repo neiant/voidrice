@@ -1,6 +1,12 @@
 #!/usr/bin/env node
+const assert = require("assert")
 
-const stdin = require("fs").readFileSync(0).toString();
+let s = require("fs").readFileSync(0).toString()
+assert(s.length, "stdin provided")
+
+s = s.split("\n")<++>
 
 <++>
+
+
 

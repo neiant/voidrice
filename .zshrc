@@ -464,6 +464,9 @@ case "$OSTYPE" in
 			### export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 			### export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
 		# }
+
+		# diff apparently doesn't have --color=always
+		unalias diff
 		;;
 	*)
 		# zsh-autosuggestions

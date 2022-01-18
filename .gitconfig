@@ -293,8 +293,7 @@
 	#q =
 	r = rebase
 	# https://github.com/kiprasmel/git-stacked-rebase
-	rr = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
-	# rr = stacked-rebase
+	rr = stacked-rebase
 	rc = rebase --continue
 	ri = rebase -i
 	ra = rebase --abort
@@ -312,7 +311,6 @@
 	# https://www.npmjs.com/package/git-stacked-rebase
 	stacked-rebase = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
 	stacked-rebase-prod = !npx git-stacked-rebase
-	rr = stacked-rebase
 
 	rs = reset
 	rmbp = rmbackup
@@ -340,7 +338,4 @@
 	#x =
 	#y =
 	#z =
-	stacked-rebase = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
-	stacked-rebase-prod = !npx git-stacked-rebase
-	rr = stacked-rebase
 

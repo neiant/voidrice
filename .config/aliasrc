@@ -615,6 +615,11 @@ dif() {
 	/usr/bin/env diff -u "$1" "$2" | diff-so-fancy
 }
 
+# ignore whitespace changes
+difb() {
+	/usr/bin/env diff -u -b "$1" "$2" | diff-so-fancy
+}
+
 
 off() {
 	file="$1"

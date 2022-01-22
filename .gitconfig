@@ -67,6 +67,8 @@
 	# (i myself feel like its unfamiliar lol)
 	#abbreviateCommands = true # meh!
 	abbreviateCommands = false
+
+	autoSquash = true
 [pull]
 	rebase = true
 	ff = yes

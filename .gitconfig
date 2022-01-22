@@ -233,7 +233,12 @@
 	fariomw = !git fa && git rom
 	farom = !git fa && git rom
 	#g =
-	#h =
+	# show a history of a file.
+	# see also https://stackoverflow.com/a/5493663/9285308
+	hist = lo --follow
+	hists = hist --stat
+	histp = hist --patch
+	hg = lg --follow
 	#i =
 	#j =
 	#k =
@@ -242,6 +247,7 @@
 	#   "--format"
 	#   "PRETTY FORMATS"
 	#
+	lo = log         --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %G?' --abbrev-commit
 	l = lg

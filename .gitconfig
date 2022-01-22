@@ -22,7 +22,7 @@
 	safecrlf = false # hides warning message but doesn't impact `autocrlf` functionality
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	longpaths = true
-	ignorecase = true
+	# ignorecase = true
 	logAllRefUpdates = true # gitassembly
 [rerere]
 	enable = true # gitassembly
@@ -86,8 +86,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[url "ssh://git@github.com/pipedrive"]
-	insteadOf = https://github.com/pipedrive
 [init]
 	defaultBranch = master
 

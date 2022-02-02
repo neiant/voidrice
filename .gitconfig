@@ -25,7 +25,7 @@
 	# ignorecase = true
 	logAllRefUpdates = true # gitassembly
 [rerere]
-	enable = true # gitassembly
+	enabled = true # gitassembly
 [imap]
 	host = mail.kipras.org
 	user = kipras@kipras.org
@@ -53,7 +53,8 @@
 	#gpgSign = false
 [merge]
 	ff = no
-	tool = code
+	tool = vimdiff
+	conflictStyle = zdiff3 # https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-mergeconflictStyle
 [stackedrebase]
 	autoApplyIfNeeded = true
 	#autoApplyIfNeeded = false
@@ -114,11 +115,13 @@
 	#
 	# 
 	#
-	fn = "!f() { echo \"hi\"; }; f;"
+	fn = "!f() { echo \"${1:-hi}\"; }; f; >/dev/null"
 
 	# https://gitlab.com/wavexx/git-assembler
 	# https://www.thregr.org/%7Ewavexx/software/git-assembler/
 	as = assembler
+
+	at = git-at # https://github.com/kiprasmel/git-at
 
 	a        = add
 
@@ -197,7 +200,8 @@
 	cawpf = !git c --amend --no-edit && git push -f
 	cawpfn = !git c --amend --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
 	ct = c -m "TEMP"
-	cgg = !git c -m "$(curl -Ls http://whatthecommit.com/index.txt)"
+	cg = cgg
+	cgg = "!git c -m \"$(curl -L http://whatthecommit.com/index.txt 2>/dev/null)\""
 	cl = clone
 	co = checkout
 	cob = checkout -b

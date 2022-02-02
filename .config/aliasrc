@@ -301,10 +301,13 @@ gap() { __gitwrap ap $* }
 gadp() { __gitwrap adp $* }
 gagp() { __gitwrap agp $* }
 
+gat() { __gitwrap at $* }
 gbp() { __gitwrap bp $* }
 gss() { __gitwrap ss $* }
 gsh() { __gitwrap sh $* }
 gct() { __gitwrap ct $* }
+gcg() { __gitwrap cg $* }
+gcgg() { __gitwrap cgg $* }
 gt() { __gitwrap t $* }
 gtt() { __gitwrap tt $* }
 gtas() { __gitwrap tas $* }

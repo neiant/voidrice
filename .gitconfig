@@ -69,12 +69,17 @@
 	#abbreviateCommands = true # meh!
 	abbreviateCommands = false
 
+	# https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
 	autoSquash = true
 [pull]
 	rebase = true
 	ff = yes
 [push]
 	followTags = true # see https://stackoverflow.com/a/26438076/9285308
+[fetch]
+	parallel = 0 # max
+[checkout]
+	parallel = 0 # max
 [hub]
 	protocol = ssh
 [help]

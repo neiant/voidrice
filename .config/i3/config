@@ -86,9 +86,12 @@ for_window [title="dropdown_calc"]		border pixel 1
 #for_window [instance="dropdown_roam"]	resize set 600 1046
 #for_window [class="dropdown_roam"]		resize set 600 1046
 #for_window [title="dropdown_roam"]		resize set 600 1046
-for_window [instance="dropdown_roam"]	resize set 872 1046
-for_window [class="dropdown_roam"]		resize set 872 1046
-for_window [title="dropdown_roam"]		resize set 872 1046
+#for_window [instance="dropdown_roam"]	resize set 872 1046
+#for_window [class="dropdown_roam"]		resize set 872 1046
+#for_window [title="dropdown_roam"]		resize set 872 1046
+for_window [instance="dropdown_roam"]	resize set 1234 1046
+for_window [class="dropdown_roam"]		resize set 1234 1046
+for_window [title="dropdown_roam"]		resize set 1234 1046
 
 for_window [instance="dropdown_qutebrowser"]	resize set 872 1046
 for_window [class="dropdown_qutebrowser"]		resize set 872 1046

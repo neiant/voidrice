@@ -235,10 +235,22 @@ precmd () {
 	# post
 	# wrap git's status
 
-	__git_ps1 \
-	"%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%1~%{$reset_color%}" \
-	"%{$fg[red]%}]%{$reset_color%}$%b " \
-	" (%s)"
+	#if [ $? -eq 0 ]; then
+		__git_ps1 \
+		"%b%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%1~%{$reset_color%}" \
+		"%{$fg[red]%}]%{$reset_color%}$%b " \
+		" (%s)"
+	#else
+		##__git_ps1 \
+		##"%b%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%1~%{$reset_color%}" \
+		##"%{$fg[red]%}]%{$reset_color%}%{$fg[red]%}$%{$reset_color%}%b " \
+		##" (%s)"
+
+		#__git_ps1 \
+		#"%{$fg[red]%}$?%{$reset_color%} %b%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%1~%{$reset_color%}" \
+		#"%{$fg[red]%}]%{$reset_color%}$%b " \
+		#" (%s)"
+	#fi
 }
 
 # # echo -ne '\e[5 q' # Use beam shape cursor on startup.

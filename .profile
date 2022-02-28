@@ -219,18 +219,12 @@ case "$OSTYPE" in
 	  	# echo "OSX"
 		export GPG_SIGNING_KEY="157102AFA5DF13F5" # osx
 
-		# nvm - only on work
+		# begin load nvm
 		export NVM_DIR="$HOME/.config/nvm"
 		[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-		[ -z "_nvm" ] && {
-			_nvm() {
-				source $HOME/.profile && nvm $*
-			}
-			nvm=_nvm
-		}
-		# end nvm
+		# end load nvm
+		# (see also ~/.zshrc)
 
 		command -v "/usr/local/bin/ssh-askpass" &>/dev/null || { echo "please install https://github.com/theseal/ssh-askpass"; exit 1 }
 		export SUDO_ASKPASS="/usr/local/bin/ssh-askpass"

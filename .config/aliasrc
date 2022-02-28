@@ -280,6 +280,7 @@ gadc() { __gitwrap adc $* }
 gadcn() { __gitwrap adcn $* }
 gadca() { __gitwrap adca $* }
 gadcaw() { __gitwrap adcaw $* }
+gadcawn() { __gitwrap adcawn $* }
 gadcawpf() { __gitwrap adcawpf $* }
 gadcawpfn() { __gitwrap adcawpfn $* }
 gadct() { __gitwrap adct $* }
@@ -291,6 +292,7 @@ gagc() { __gitwrap agc $* }
 gagcn() { __gitwrap agcn $* }
 gagca() { __gitwrap agca $* }
 gagcaw() { __gitwrap agcaw $* }
+gagcawn() { __gitwrap agcawn $* }
 gagcawpf() { __gitwrap agcawpf $* }
 gagcawpfn() { __gitwrap agcawpfn $* }
 gagct() { __gitwrap agct $* }

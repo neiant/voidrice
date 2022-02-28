@@ -144,6 +144,9 @@
 	adcaw    = !git add ${GIT_PREFIX:-.} && git ca --no-edit
 	agcaw    = !git add               .  && git ca --no-edit
 
+	adcawn    = !git add ${GIT_PREFIX:-.} && git ca --no-edit --no-verify
+	agcawn    = !git add               .  && git ca --no-edit --no-verify
+
 	adcawpf  = !git add ${GIT_PREFIX:-.} && git ca --no-edit && git push -f
 	agcawpf  = !git add               .  && git ca --no-edit && git push -f
 

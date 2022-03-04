@@ -206,6 +206,15 @@ export MOZCONFIG="$HOME/.config/mozilla/mozconfig"
 # disable emoji in minikube
 export MINIKUBE_IN_STYLE=false
 
+#k8s
+# kubectl plugins (originally wanted https://github.com/kubernetes-sigs/krew):
+export PATH="${PATH}:${HOME}/.krew/bin"
+# for kubectl, don't forget exporting the config filepath:
+# export KUBECONFIG=~/.kube/k8s-2-fra-2-live.config
+# before running the command, such as 'kubectl get pods'
+# 
+
+
 # DBs
 export KEEPASS_DB="$HOME/private/keepassxc-passwords.kdbx"
 

@@ -82,7 +82,6 @@ alias \
 	batt="cat /sys/class/power_supply/BAT?/capacity" \
 	cp="cp -v" \
 	mv="mv -v" \
-	rm="rm -v" \
 	mkd="mkdir -pv" \
 	yta="yt -x -f bestaudio/best" \
 	ffmpeg="ffmpeg -hide_banner"
@@ -217,6 +216,7 @@ coc() { config c $* }
 cod() { config d $* }
 gso() { __gitwrap so $* }
 gsod() { __gitwrap sod $* }
+gsoc() { __gitwrap soc $* }
 gd() { __gitwrap d $* }
 gds() { __gitwrap ds $* }
 gdd() { __gitwrap dd $* }
@@ -233,6 +233,8 @@ gparw() { __gitwrap parw $* }
 gpad() { __gitwrap pad $* }
 gpado() { __gitwrap pado $* }
 gpaod() { __gitwrap pado $* }
+gpadom() { __gitwrap padom $* }
+gpadd() { __gitwrap padd $* }
 gpp() { __gitwrap pp $* }
 gpl() { __gitwrap pl $* }
 gf() { __gitwrap f $* }
@@ -266,6 +268,7 @@ griomw() { __gitwrap riomw $* }
 griofw() { __gitwrap riofw $* }
 grium() { __gitwrap rium $* }
 grmbp() { __gitwrap rmbp $* }
+grgrep() { __gitwrap rgrep $* }
 gl() { __gitwrap l $* }
 glg() { __gitwrap lg $* }
 glgp() { __gitwrap lgp $* }
@@ -562,7 +565,7 @@ shredr() {
 }
 
 # generated with 'thefuck --alias'
-fuck () {
+fuck() {
     TF_PYTHONIOENCODING=$PYTHONIOENCODING;
     export TF_SHELL=zsh;
     export TF_ALIAS=fuck;
@@ -594,8 +597,12 @@ catt() {
 	cat $* "$file_with_newline_path"
 }
 
-catn()   { catt $* }
-catnl()  { catt $* }
+catn() {
+	catt $*
+}
+catnl() {
+	catt $*
+}
 
 # find pog
 xfind() {
@@ -623,6 +630,21 @@ dif() {
 # ignore whitespace changes
 difb() {
 	/usr/bin/env diff -u -b "$1" "$2" | diff-so-fancy
+}
+
+# toggle
+tog() {
+	cwd="$(pwd)"
+	mkdir -p ~/lost
+	pushd ~/lost &&
+	popd &&
+	ls -la || {
+		printf "$cwd\n" >> ~/lost/found
+	}
+}
+
+umv() {
+	mv "$2" "$1"
 }
 
 trim_extension() {

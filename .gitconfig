@@ -17,7 +17,9 @@
 	# signingkey = 157102AFA5DF13F5 # osx
 [core]
 	# editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
-	# editor = '/usr/bin/env code' --new-window --wait
+	#editor = '/usr/local/bin/code'              --wait
+	#editor = '/usr/local/bin/code' --new-window --wait
+
 	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
 	safecrlf = false # hides warning message but doesn't impact `autocrlf` functionality
 	pager = diff-so-fancy | less --tabs=4 -RFX
@@ -72,7 +74,7 @@
 	# https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
 	autoSquash = true
 [pull]
-	rebase = true
+	rebase = true # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase
 	ff = yes
 [push]
 	followTags = true # see https://stackoverflow.com/a/26438076/9285308
@@ -291,6 +293,10 @@
 	paod = !git-pad ${1:-@}
 	pado = paod
 
+	padom = !git-pad origin/master..${1:-@}
+
+	padd = !git-pad ${1:-origin/master}..${2:-@}
+
 	# stats (compared to the parent branch)
 	padp = !git pad "$(git parent)"
 
@@ -332,6 +338,9 @@
 	rs = reset
 	rmbp = rmbackup
 	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
+
+	rgrep = !git grep "$1" $(git rev-list --all)
+
 	s = status
 	sa = status --untracked-files=all
 	si = status --ignored=traditional
@@ -345,6 +354,9 @@
 	ss = show
 	sh = show HEAD
 	shc = !git show HEAD | wc
+
+	soc = !git show "$(xclip -r -selection clipboard -o)" # TODO
+
 	stash-unapply = !git stash show -p | git apply -Rc
 	t = tag
 	tt = tas

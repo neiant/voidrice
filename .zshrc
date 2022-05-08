@@ -1,6 +1,21 @@
 
 # https://wiki.archlinux.org/title/zsh
 
+# make the gnu-date command available so that bootTime
+# can be accurately measured
+case "$OSTYPE" in
+	darwin*)
+		# make gnu date (gdate) take over osx date
+		export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+		;;
+	*)
+		;;
+esac
+
+# measure boot time (see also the last line)
+# note: uses gnu-date
+bootTimeStart=$(date +%s%N)
+
 # handle mac-os specifics
 case "$OSTYPE" in
 	darwin*)
@@ -37,21 +52,17 @@ case "$OSTYPE" in
 			}
 		}
 
-		# make gnu date (gdate) take over osx date
-		export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
 		# TODO fix on vscode
-		eval "$(pyenv init -)"
+		#eval "$(pyenv init -)"
 
-		# export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
+		# overwrite the vscodium alias to "code" (non-oss fully)
+		! command -v vscodium && {
+			alias vscodium="code"
+		}
 		;;
 	*) 
 		;;
 esac
-
-# measure boot time (see also the last line)
-# note: uses gnu-date
-bootTimeStart=$(date +%s%N)
 
 # bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
 #autoload -U +X bashcompinit && bashcompinit

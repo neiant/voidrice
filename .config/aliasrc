@@ -625,27 +625,41 @@ difb() {
 	/usr/bin/env diff -u -b "$1" "$2" | diff-so-fancy
 }
 
-off() {
-	file="$1"
+trim_extension() {
+	printf "${1%.*}"
+}
+get_extension() {
+	printf "${1##*.}"
+}
 
-	[ -z "$file" ] && {
-		printf "off <file>\n"
+off() {
+	local pa="$1"
+
+	[ -z "$pa" ] && {
+		printf "off <pa>\n"
 		return 1
 	}
 
-	if ! [ -f "$file" ]; then
-		[ -f "$file.off" ] && {
-			printf "already off. enable? [Y/n] "
-			read -r ans
+	ext="$(get_extension "$pa")"
 
-			if [ -z "$ans" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
-				mv -v "$file.off" "$file"
+	if [ -f "$pa.off" ] || [ -d "$pa.off" ] || [ "$ext" = "off" ]; then
+		printf "already off. enable? [Y/n] "
+		read -r ans
+
+		if [ -z "$ans" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
+			if [ -f "$pa.off" ] || [ -d "$pa.off" ]; then
+				mv -v "$pa.off" "$pa"
+			elif [ "$ext" = "off" ]; then
+				mv -v "$pa" "$(trim_extension "$pa")"
 			else
-				return 0
+				>&2 printf "\nunhandled scenario, fix the 'off' script\n\n"
+				return 1
 			fi
-		}
-	else
-		mv -v "$file" "$file.off"
+		else
+			return 0
+		fi
+	else 
+		mv -v "$pa" "$pa.off"
 	fi
 
 	return 0

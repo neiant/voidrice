@@ -481,6 +481,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 case "$OSTYPE" in
 	# https://unix.stackexchange.com/a/446380/332452
 	darwin*)
+		export GPG_SIGNING_KEY="157102AFA5DF13F5" # osx
+
 		# zsh-autosuggestions
  		source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -506,6 +508,8 @@ case "$OSTYPE" in
 		unalias diff
 		;;
 	*)
+		export GPG_SIGNING_KEY="AA505BC1C6D8AD90" # arch
+
 		# zsh-autosuggestions
 		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 	;;

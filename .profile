@@ -226,7 +226,6 @@ case "$OSTYPE" in
   solaris*) echo "SOLARIS" ;;
   darwin*)
 	  	# echo "OSX"
-		export GPG_SIGNING_KEY="157102AFA5DF13F5" # osx
 
 		# begin load nvm
 		export NVM_DIR="$HOME/.config/nvm"
@@ -283,7 +282,6 @@ case "$OSTYPE" in
   		;;
   linux*) 
 	  	#echo "LINUX" ;;
-		export GPG_SIGNING_KEY="AA505BC1C6D8AD90" # arch
 
   		;;
   bsd*)     #echo "BSD" ;;

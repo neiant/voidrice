@@ -19,6 +19,7 @@ Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
+Plug 'https://github.com/chrisbra/csv.vim' " extension for vim-airline to show current column for csv files
 Plug 'tpope/vim-commentary'
 " autocompletion. the `--all` flag might be used to install all support. more info @ https://valloric.github.io/YouCompleteMe/#installation
 " https://github.com/Valloric/YouCompleteMe/
@@ -882,4 +883,10 @@ EOF
 
 
 
+" --- vim-airline ---
+
+" show current column in csv files.
+" see :help airline-csv
+let g:airline#extensions#csv#enabled = 1
+let g:airline#extensions#csv#column_display = 'Name'
 

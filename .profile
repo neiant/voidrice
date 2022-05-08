@@ -178,7 +178,7 @@ export PATH="$PATH:/opt/lampp"
 export PATH="$PATH:$HOME/.local/bin"
 
 # source some secrets
-[ -f "$HOME/.secret" ] && source "$HOME/.secret"
+[ -f "$HOME/.secret" ] && . "$HOME/.secret"
 
 # sourcemod / sourcepawn
 export PATH="$PATH:$HOME/.local/share/sourcemod/addons/sourcemod/scripting"
@@ -214,6 +214,8 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 # before running the command, such as 'kubectl get pods'
 # 
 
+# firefox
+[ -f  "$HOME/.local/share/cargo/env" ] && . "$HOME/.local/share/cargo/env"
 
 # DBs
 export KEEPASS_DB="$HOME/private/keepassxc-passwords.kdbx"
@@ -234,7 +236,10 @@ case "$OSTYPE" in
 		# end load nvm
 		# (see also ~/.zshrc)
 
-		command -v "/usr/local/bin/ssh-askpass" &>/dev/null || { echo "please install https://github.com/theseal/ssh-askpass"; exit 1 }
+		command -v "/usr/local/bin/ssh-askpass" &>/dev/null || {
+			echo "please install https://github.com/theseal/ssh-askpass"
+			exit 1
+		}
 		export SUDO_ASKPASS="/usr/local/bin/ssh-askpass"
 
 		# BEGIN PYTHON
@@ -279,7 +284,8 @@ case "$OSTYPE" in
 
 		# add yabai (wm) scripts
 		export PATH="${XDG_CONFIG_HOME:-$HOME/.config}/yabai/scripts:$PATH"
-  		;;
+
+		;;
   linux*) 
 	  	#echo "LINUX" ;;
 
@@ -297,7 +303,7 @@ esac
 # and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
 export NODE_PATH="$(yarn global dir)"
 
-[ -f ~/yarn-completion.bash ] && source ~/yarn-completion.bash
+[ -f ~/yarn-completion.bash ] && . ~/yarn-completion.bash
 
 case "$OSTYPE" in
   solaris*) ;;

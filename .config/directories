@@ -45,6 +45,7 @@ sn ~/projects/snitch-latest-car
 tt	~/projects/turbo-schedule
 rtg	~/projects/roam-traverse-graph
 gsr ~/projects/git-stacked-rebase
+ghb ~/projects/git-historical-blame
 tw  ~/learnprojects/tailwindcss
 xs  ~/projects/xstate-cpp
 gbak ~/projects/git-backup

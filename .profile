@@ -223,6 +223,9 @@ export KEEPASS_DB="$HOME/private/keepassxc-passwords.kdbx"
 # work
 export PIPEDRIVE_GIT_DIR="$HOME/fun"
 
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+export PUPPETEER_EXECUTABLE_PATH="$(which chromium)"
+
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in
   solaris*) echo "SOLARIS" ;;

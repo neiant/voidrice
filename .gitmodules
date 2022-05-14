@@ -1,5 +1,5 @@
-[submodule ".config/mpv/scripts/mpvSockets"]
-	path = .config/mpv/scripts/mpvSockets
+[submodule ".config/mpv/script_modules/mpvSockets"]
+	path = .config/mpv/script_modules/mpvSockets
 	url = https://github.com/wis/mpvSockets.git
 [submodule ".config/iterm"]
 	path = .config/iterm

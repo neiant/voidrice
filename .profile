@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 # ~/.profile
 # Profile file. Runs on login. Environmental variables are set here.
 
@@ -10,6 +10,9 @@ export LARBSWM="$(cat ~/.local/share/larbs/wm 2>/dev/null)" &&
 
 # Adds `~/.local/bin/` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+# export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}" # TODO merge investigate
+
+# unsetopt PROMPT_SP # TODO merge intestigate
 
 export PATH="$PATH:${XDG_DATA_HOME:-$HOME/.local/share}/cargo/bin"
 export PATH="$PATH:$HOME/go/bin"
@@ -34,10 +37,13 @@ export BROWSER="firefox-developer-edition"
 export READER="zathura"
 export FILE="lf"
 export STATUSBAR="${LARBSWM}blocks"
+
+# ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-export WAKATIME_HOME="$HOME/.config/wakatime"
+#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
+export WAKATIME_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/wakatime"
 export PLATFORMIO_CORE_DIR="$HOME/.config/platformio"
 export BIB="$HOME/Documents/LaTeX/uni.bib"
 export REFER="$HOME/Documents/referbib"
@@ -48,7 +54,7 @@ export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/inputrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export ALSA_CONFIG_PATH="$XDG_CONFIG_HOME/alsa/asoundrc"
-#export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+#export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
 export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
@@ -57,17 +63,16 @@ export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ansible/ansible.cfg"
+export UNISON="${XDG_DATA_HOME:-$HOME/.local/share}/unison"
+export WEECHAT_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/weechat"
+export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
+export ELECTRUMDIR="${XDG_DATA_HOME:-$HOME/.local/share}/electrum"
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 # https://wiki.archlinux.org/index.php/.NET_Core#Telemetry
 export DOTNET_ROOT="/opt/dotnet" # https://wiki.archlinux.org/index.php/.NET_Core#Troubleshooting
 export MSBuildSDKsPath="/opt/dotnet/sdk/3.0.100/Sdks";
 #export MSBuildSDKsPath="/opt/dotnet/sdk/2.2.108/Sdks";
 ##export N_PREFIX="$HOME/.local/share/n"
-
-# ~/ Clean-up:
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
 
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
@@ -86,6 +91,8 @@ export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export QT_QPA_PLATFORMTHEME="gtk2"	# Have QT use gtk2 theme.
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.
+export AWT_TOOLKIT="MToolkit wmname LG3D"	#May have to install wmname
+export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
 
 # This is the list for lf icons:
 export LF_ICONS="di=📁:\
@@ -100,11 +107,15 @@ ex=🎯:\
 *.me=✍:\
 *.ms=✍:\
 *.png=🖼:\
+*.webp=🖼:\
 *.ico=🖼:\
 *.jpg=📸:\
+*.jpe=📸:\
 *.jpeg=📸:\
 *.gif=🖼:\
 *.svg=🗺:\
+*.tif=🖼:\
+*.tiff=🖼:\
 *.xcf=🖌:\
 *.html=🌎:\
 *.xml=📰:\
@@ -121,16 +132,23 @@ ex=🎯:\
 *.R=📊:\
 *.rmd=📊:\
 *.Rmd=📊:\
+*.m=📊:\
 *.mp3=🎵:\
 *.opus=🎵:\
 *.ogg=🎵:\
 *.m4a=🎵:\
 *.flac=🎼:\
+*.wav=🎼:\
 *.mkv=🎥:\
 *.mp4=🎥:\
 *.webm=🎥:\
 *.mpeg=🎥:\
 *.avi=🎥:\
+*.mov=🎥:\
+*.mpg=🎥:\
+*.wmv=🎥:\
+*.m4b=🎥:\
+*.flv=🎥:\
 *.zip=📦:\
 *.rar=📦:\
 *.7z=📦:\
@@ -138,6 +156,9 @@ ex=🎯:\
 *.z64=🎮:\
 *.v64=🎮:\
 *.n64=🎮:\
+*.gba=🎮:\
+*.nes=🎮:\
+*.gdi=🎮:\
 *.1=ℹ:\
 *.nfo=ℹ:\
 *.info=ℹ:\
@@ -148,6 +169,8 @@ ex=🎯:\
 *.ged=👪:\
 *.part=💔:\
 *.torrent=🔽:\
+*.jar=♨:\
+*.java=♨:\
 "
 
 [ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ] && shortcuts >/dev/null 2>&1 &
@@ -318,6 +341,7 @@ case "$OSTYPE" in
 		# MUST BE LAST:
 		# Start graphical server on tty1 if not already running.
 		[ "$(tty)" = "/dev/tty1" ] && ! ps -e | grep -qw Xorg && exec startx
+		# [ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC" # TODO merge investigate
 
   		;;
   bsd*) ;;

@@ -13,12 +13,11 @@ Plug 'https://github.com/tpope/vim-rsi'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
-" Plug 'junegunn/goyo.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'https://github.com/chrisbra/csv.vim' " extension for vim-airline to show current column for csv files
 Plug 'tpope/vim-commentary'
 " autocompletion. the `--all` flag might be used to install all support. more info @ https://valloric.github.io/YouCompleteMe/#installation
@@ -187,11 +186,11 @@ colorscheme onedark
 
 " call timer_start(0, { ->s:set_conditional_colorscheme() })
 
+set title
 set background=dark
 set go=a
 set mouse=a
 set nohlsearch
-""" TODO #merge ('=' changed to '+=' - does this solve all my problems? :D)
 set clipboard+=unnamedplus " always copies into default clipboard by default. see https://stackoverflow.com/a/11489440/9285308
 set shada+=n~/.vim/viminfo " change the location of the 'viminfo' file. see https://stackoverflow.com/a/6286925 & https://github.com/neovim/neovim/issues/3469#issuecomment-148900742
 set updatetime=1000 " http://vimdoc.sourceforge.net/htmldoc/options.html#%27updatetime%27
@@ -339,12 +338,8 @@ set completefunc=emoji#complete
 	"
 	set ttimeoutlen=0 
 
-
-" Goyo plugin makes text more readable when writing prose:
-	" map <leader>g :Goyo \| set bg=light \| set linebreak<CR>
-
-" Spell-check set to <leader>o, 'o' for 'orthography':
-	"map <leader>o :setlocal spell! spelllang=en_us<CR>
+" Perform dot commands over visual blocks:
+	vnoremap . :normal .<CR>
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
@@ -352,13 +347,18 @@ set completefunc=emoji#complete
 " Nerd tree
 	map <C-n> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    if has('nvim')
+        let NERDTreeBookmarksFile = stdpath('data') . '/NERDTreeBookmarks'
+    else
+        let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
+    endif
 
 " vimling:
-	nm <leader>d :call ToggleDeadKeys()<CR>
-	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a
-	nm <leader>i :call ToggleIPA()<CR>
-	imap <leader>i <esc>:call ToggleIPA()<CR>a
-	nm <leader>q :call ToggleProse()<CR>
+	nm <leader><leader>d :call ToggleDeadKeys()<CR>
+	imap <leader><leader>d <esc>:call ToggleDeadKeys()<CR>a
+	nm <leader><leader>i :call ToggleIPA()<CR>
+	imap <leader><leader>i <esc>:call ToggleIPA()<CR>a
+	nm <leader><leader>q :call ToggleProse()<CR>
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
@@ -375,7 +375,7 @@ set completefunc=emoji#complete
 	map Q gq
 
 " Check file in shellcheck:
-	map <leader>x :!clear && shellcheck %<CR>
+	map <leader>x :!clear && shellcheck -x %<CR>
 
 " Open my bibliography file in split
 	"map <leader>b :vsp<space>$BIB<CR>
@@ -385,7 +385,7 @@ set completefunc=emoji#complete
 	nnoremap S :%s//g<Left><Left>
 
 " Compile document, be it groff/LaTeX/markdown/etc.
-	map <leader>c :w! \| !compiler <c-r>%<CR>
+	map <leader>c :w! \| !compiler "<c-r>%"<CR>
 
 	autocmd FileType cpp noremap <leader>p :w! \| !cputils-run -a "-DEVAL" - <c-r>%<CR>
 	autocmd FileType cpp noremap <M-p>     :w! \| !cputils-run -a "-DEVAL" - <c-r>%<CR>
@@ -418,8 +418,8 @@ set completefunc=emoji#complete
 
 " Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	map <leader>v :VimwikiIndex
-	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+	map <leader>v :VimwikiIndex<CR>
+	let g:vimwiki_list = [{'path': '~/.local/share/nvim/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
@@ -427,15 +427,12 @@ set completefunc=emoji#complete
 " Save file as sudo on files that require root permission
 	cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" Enable Goyo by default for mutt writting
+" Enable Goyo by default for mutt writing
 	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
 	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
 
-" Automatically deletes all trailing whitespace and newlines at end of file on save.
-	""autocmd BufWritePre * %s/\s\+$//e
-	""autocmd BufWritepre * %s/\n\+\%$//e
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
 	autocmd BufWritePost files,directories !shortcuts
@@ -448,6 +445,9 @@ set completefunc=emoji#complete
 
 " Recompile suckless programs automatically:
 	autocmd BufWritePost ~/builds/st/config.h,~/builds/st/config.def.h !sudo make instal
+
+" Recompile dwmblocks on config edit.
+	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
 
 " Navigating with guides
 	inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
@@ -585,6 +585,36 @@ nnoremap <A--> <C-o>
 " next
 nnoremap <A-=> <C-i>
 
+" --- vim-airline ---
+
+" show current column in csv files.
+" see :help airline-csv
+let g:airline#extensions#csv#enabled = 1
+let g:airline#extensions#csv#column_display = 'Name'
+
+" Function for toggling the bottom statusbar:
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+nnoremap <leader>h :call ToggleHiddenAll()<CR>
+" Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
+" Here leader is ";".
+" So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
+" if typed fast without the timeout.
+source ~/.config/nvim/shortcuts.vim
 
 " " BEGIN COC.VIM
 " 
@@ -880,13 +910,3 @@ lua <<EOF
     capabilities = capabilities
   }
 EOF
-
-
-
-" --- vim-airline ---
-
-" show current column in csv files.
-" see :help airline-csv
-let g:airline#extensions#csv#enabled = 1
-let g:airline#extensions#csv#column_display = 'Name'
-

@@ -2,10 +2,11 @@
 h	~/
 zd	$ZDOTDIR
 tmp ~/tmp
-D	~/Documents
+D   ${XDG_DOCUMENTS_DIR:-$HOME/Documents}
 o	~/Documents/thoughts/
 th	~/Documents/thoughts/
 dl	~/Downloads
+dl  ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
 tt  ~/time-track
 pr  ~/private
 pp	~/projects
@@ -59,11 +60,11 @@ nn 	~/projects/neural-nets-from-scratch
 re	~/projects/lilreddit
 pic	~/Pictures
 # sa ~/screenshots
-vv	~/Videos
+vv  ${XDG_VIDEOS_DIR:-$HOME/Videos}
 cf	${XDG_CONFIG_HOME:-$HOME/.config}
 cfc ${XDG_CONFIG_HOME:-$HOME/.config}/cputils
 yab ${XDG_CONFIG_HOME:-$HOME/.config}/yabai
-ca  ~/.cache
+ca ${XDG_CACHE_HOME:-$HOME/.cache}
 bb  ~/.cache/builds
 sc	~/.local/bin
 sca ~/school
@@ -71,7 +72,7 @@ mn	/mnt
 ds ~/dotfiles
 dds ~/.dotfiles
 lr ~/larbs
-sr ~/.local/share
+sr ${XDG_DATA_HOME:-$HOME/.local/share}
 #te ~/projects/teaching
 pk ~/programavimo-klubas
 vp ~/.config/delugevpn/
@@ -85,4 +86,3 @@ froot ~/fun/froot
 
 notes ~/projects/notes-private
 not ~/projects/roam-traverse-graph/plugin-export-public-pages
-

@@ -14,7 +14,7 @@
 # read https://wiki.archlinux.org/index.php/Security#Editing_files_using_sudo
 
 # Use neovim for vim if present.
-command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 alias ka="killall" \
 	Q="cd / && $HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit" \
@@ -85,13 +85,14 @@ alias \
 	mkd="mkdir -pv" \
 	yta="yt -x -f bestaudio/best" \
 	ffmpeg="ffmpeg -hide_banner"
-	#yt="youtube-dl --add-metadata -i" \
+	#yt="yt-dlp --embed-metadata -i" \
 
 # Colorize commands when possible.
 alias \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
-	ccat="highlight --out-format=ansi"
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
 
 # These common commands are just too long! Abbreviate them.
 alias \
@@ -101,16 +102,17 @@ alias \
 	sdn="sudo shutdown -h now" \
 	f="$FILE" \
 	v="$EDITOR" \
-	p="sudo pacman" \
+	p="pacman" \
 	xi="sudo xbps-install" \
 	xq="xbps-query"
 	# xr="sudo xbps-remove -R" \
 
-# Some other stuff
 alias \
+	lf="lfub" \
 	magit="nvim -c MagitOnly" \
-	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
-	weath="less -S ~/.local/share/weatherreport" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
+	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
+	# tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
 
 # This alias is important. It enables the `pauseallmpv` command.
 alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
@@ -686,4 +688,3 @@ off() {
 
 	return 0
 }
-

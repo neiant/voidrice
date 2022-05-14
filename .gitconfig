@@ -253,6 +253,7 @@
 	hists = hist --stat
 	histp = hist --patch
 	hg = lg --follow
+	hop = !git-hop # https://github.com/kiprasmel/voidrice/blob/master/.local/bin/git-hop
 	#i =
 	#j =
 	#k =

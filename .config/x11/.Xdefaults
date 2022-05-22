@@ -22,7 +22,7 @@ st.alpha: 1
 
 ### this makes st crash when emojis are seen ###
 *.font: FuraCode Nerd Font Mono:pixelsize=20:style=Retina,Regular;
-st.font: monospace:size=11:style=Regular;
+st.font: monospace:size=9:style=Regular;
 dmenu.font: monospace:size=12:style=Regular;
 ! *.font: xft:Symbola:style=Regular:pixelsize=24
 ! *.font: Operator Mono Lig:pixelsize=22

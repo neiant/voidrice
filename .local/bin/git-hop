@@ -7,54 +7,54 @@
 
 const { execSync } = require("child_process")
 
-const branches = execSync(`git branch --points-at @ --all`, { encoding: "utf-8" }) // | sed '/^  @$/d;')"
-	.split("\n")
-	.filter(b => b.trim() !== "@")
-	.filter(b => !!b)
-	.map((b) => ({
-		isCurrent: b.startsWith("* "),
-		branchfull: b.slice(2),
-	}))
-	.map((b) => ({
-		...b,
-		isRemote: b.branchfull.startsWith("remotes/"),
-	}))
-	.map((b) => ({
-		...b,
-		branch: b.isRemote
-			? b.branchfull.replace(/^remotes\/[^/]+\//, "")
-			: b.branchfull,
-	}))
-	.map((b, _idx, all) => ({
-		...b,
-		isNotCheckedOutLocally: b.isRemote && !all.some(otherB => !otherB.isRemote && otherB.branch === b.branch),
-	}))
-	.filter((b, _idx, all) => {
-		return !b.isRemote 
-			||  b.isNotCheckedOutLocally
-	})
-	.map((b, idx) => ({
-		...b,
-		idx,
-	}))
-
-const normalizeFor = length => idx => (idx + length) % length
-const normalize = normalizeFor(branches.length)
-
-const findWithOffset = (offset = 1) => {
-	const idx = branches.findIndex(b => b.isCurrent)
-	const nextIdx = normalize((idx + offset))
-	return branches[nextIdx]
-}
-// const findNext = findWithOffset(+1)
-// const findPrev = findWithOffset(-1)
-
 const git_hop_cli = () => {
 	process.argv.splice(0, 2)
 
 	const arg0 = process.argv[0] || ""
 	const backs = ["back", "b"]
 	const hasBack = backs.includes(arg0.toLowerCase())
+
+	const branches = execSync(`git branch --points-at @ --all`, { encoding: "utf-8" }) // | sed '/^  @$/d;')"
+		.split("\n")
+		.filter(b => b.trim() !== "@")
+		.filter(b => !!b)
+		.map((b) => ({
+			isCurrent: b.startsWith("* "),
+			branchfull: b.slice(2),
+		}))
+		.map((b) => ({
+			...b,
+			isRemote: b.branchfull.startsWith("remotes/"),
+		}))
+		.map((b) => ({
+			...b,
+			branch: b.isRemote
+				? b.branchfull.replace(/^remotes\/[^/]+\//, "")
+				: b.branchfull,
+		}))
+		.map((b, _idx, all) => ({
+			...b,
+			isNotCheckedOutLocally: b.isRemote && !all.some(otherB => !otherB.isRemote && otherB.branch === b.branch),
+		}))
+		.filter((b, _idx, all) => {
+			return !b.isRemote 
+				||  b.isNotCheckedOutLocally
+		})
+		.map((b, idx) => ({
+			...b,
+			idx,
+		}))
+
+	const normalizeFor = length => idx => (idx + length) % length
+	const normalize = normalizeFor(branches.length)
+
+	const findWithOffset = (offset = 1) => {
+		const idx = branches.findIndex(b => b.isCurrent)
+		const nextIdx = normalize((idx + offset))
+		return branches[nextIdx]
+	}
+	// const findNext = findWithOffset(+1)
+	// const findPrev = findWithOffset(-1)
 
 	const offset = +1
 	// const findTarget = hasBack ? findPrev : findNext

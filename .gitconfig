@@ -158,6 +158,10 @@
 	adct     = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks 
 	agct     = !git add               .  && git c -m "TEMP" --no-verify # --no-verify to ignore husky's hooks 
 
+	# see "cf"
+	adcf     = "!git add ${GIT_PREFIX:-.} && git show \"$1\" --format=oneline --no-patch && git c --message=\"fixup! $1\" #"
+	agcf     = "!git add               .  && git show \"$1\" --format=oneline --no-patch && git c --message=\"fixup! $1\" #"
+
 	adctpf   = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify && git push -f --no-verify # --no-verify to ignore husky's hooks 
 	agctpf   = !git add               .  && git c -m "TEMP" --no-verify && git push -f --no-verify # --no-verify to ignore husky's hooks 
 
@@ -210,6 +214,7 @@
 	cawpf = !git c --amend --no-edit && git push -f
 	cawpfn = !git c --amend --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
 	ct = c -m "TEMP"
+	cf = "!git show \"$1\" --format=oneline --no-patch && git c --message=\"fixup! $1\" #" # https://stackoverflow.com/a/39523506/9285308
 	cg = cgg
 	cgg = "!git c -m \"$(curl -L http://whatthecommit.com/index.txt 2>/dev/null)\""
 	cl = clone

@@ -289,6 +289,7 @@ gadcawn() { __gitwrap adcawn $* }
 gadcawpf() { __gitwrap adcawpf $* }
 gadcawpfn() { __gitwrap adcawpfn $* }
 gadct() { __gitwrap adct $* }
+gadcf() { __gitwrap adcf $* }
 gadctpf() { __gitwrap adctpf $* }
 gadctpfre() { __gitwrap adctpfre $* }
 
@@ -301,6 +302,7 @@ gagcawn() { __gitwrap agcawn $* }
 gagcawpf() { __gitwrap agcawpf $* }
 gagcawpfn() { __gitwrap agcawpfn $* }
 gagct() { __gitwrap agct $* }
+gagcf() { __gitwrap agcf $* }
 gagctpf() { __gitwrap agctpf $* }
 gagctpfre() { __gitwrap agctpfre $* }
 
@@ -313,6 +315,7 @@ gbp() { __gitwrap bp $* }
 gss() { __gitwrap ss $* }
 gsh() { __gitwrap sh $* }
 gct() { __gitwrap ct $* }
+gcf() { __gitwrap cf $* }
 gcg() { __gitwrap cg $* }
 gcgg() { __gitwrap cgg $* }
 gt() { __gitwrap t $* }

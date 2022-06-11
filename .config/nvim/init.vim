@@ -798,6 +798,11 @@ nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
 noremap <leader>s :!git exec make test<CR>
 " autocmd FileType bats inoremap <Esc><leader>a :!git exec make test<CR>
 
+lua <<EOF
+-- https://github.com/phaazon/hop.nvim#installation
+require'hop'.setup()
+EOF
+
 nnoremap <leader>w :HopWord<CR>
 nnoremap <leader>f :HopWord<CR>
 nnoremap <C-f> :HopWord<CR>

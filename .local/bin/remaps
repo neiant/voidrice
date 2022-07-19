@@ -4,7 +4,9 @@
 # Decrease key repeat delay to 300ms and increase key repeat rate to 50 per second.
 xset r rate 300 50
 # set ALT + SHIFT to change layouts from US to LT & vice versa
-setxkbmap -option "grp:switch,grp:alt_shift_toggle,grp_led:scroll" -layout "us,lt" &
+# see also https://askubuntu.com/a/813685/916353
+setxkbmap -option "grp:switch,grp:alt_shift_toggle,grp_led:scroll" -layout "us,lt,ru" -variant ',,phonetic_YAZHERTY'
+# setxkbmap -option "grp:switch,grp:alt_shift_toggle,grp_led:scroll,compose:menu" -layout 'us,lt,ru' -variant ',,phonetic_winkeys'
 # Map the caps lock key to super...
 setxkbmap -option caps:super -variant altgr-intl
 # But when it is pressed only once, treat it as escape.
@@ -14,3 +16,4 @@ xmodmap -e 'keycode 135 = Super_R'
 # TODO merge investigate
 ## Turn off caps lock if on since there is no longer a key for it.
 #xset -q | grep "Caps Lock:\s*on" && xdotool key Caps_Lock
+

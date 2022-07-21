@@ -329,6 +329,11 @@ esac
 # and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
 export NODE_PATH="$(yarn global dir)"
 
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
 [ -f ~/yarn-completion.bash ] && . ~/yarn-completion.bash
 
 case "$OSTYPE" in

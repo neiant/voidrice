@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+TO_HOST="${TO_HOST:-prod}" # configured in ~/.ssh/config; can set to address / ip / url etc.
+TO_HOST_PORT="${TO_HOST_PORT:-2020}" # configured on your host
+
+if [ -z "$1" ]; then
+	printf "\
+usage:
+
+shareport-ssh LOCAL_PORT [ANYTHING ELSE FORWARDED TO THE SSH COMMAND]
+
+examples:
+    shareport-ssh 3000
+    shareport-ssh 3000 -fN
+
+see also:
+    man ssh
+    https://youtu.be/N8f5zv9UUMI
+"
+	exit 1
+else
+	PORT="$1"
+	shift
+fi
+
+ssh -R "$TO_HOST_PORT":localhost:"$PORT" "$TO_HOST" $*
+

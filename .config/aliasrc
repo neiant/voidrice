@@ -290,6 +290,8 @@ gadcawpf() { __gitwrap adcawpf $* }
 gadcawpfn() { __gitwrap adcawpfn $* }
 gadct() { __gitwrap adct $* }
 gadcf() { __gitwrap adcf $* }
+gadcfr() { __gitwrap adcfr $* }
+gadcfrw() { __gitwrap adcfrw $* }
 gadctpf() { __gitwrap adctpf $* }
 gadctpfre() { __gitwrap adctpfre $* }
 
@@ -303,6 +305,8 @@ gagcawpf() { __gitwrap agcawpf $* }
 gagcawpfn() { __gitwrap agcawpfn $* }
 gagct() { __gitwrap agct $* }
 gagcf() { __gitwrap agcf $* }
+gagcfr() { __gitwrap agcfr $* }
+gagcfrw() { __gitwrap agcfrw $* }
 gagctpf() { __gitwrap agctpf $* }
 gagctpfre() { __gitwrap agctpfre $* }
 

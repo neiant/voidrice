@@ -78,6 +78,7 @@
 	ff = yes
 [push]
 	followTags = true # see https://stackoverflow.com/a/26438076/9285308
+	autoSetupRemote = true # previously used "git pp", now "git p(ush)" is enough. see git help config
 [fetch]
 	parallel = 0 # max
 [checkout]

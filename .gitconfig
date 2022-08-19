@@ -55,8 +55,31 @@
 	#gpgSign = false
 [merge]
 	ff = no
-	tool = vimdiff
 	conflictStyle = zdiff3 # https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-mergeconflictStyle
+
+	# https://stackoverflow.com/a/19780597/9285308
+	# https://stackoverflow.com/a/70584930/9285308
+	tool = nvimdiff
+[mergetool] # https://www.git-scm.com/docs/git-mergetool
+	# hideResolved = true
+	writeToTemp = true
+[mergetool "vimdiff"]
+	#hideResolved = true
+	# https://stackoverflow.com/a/35482243/9285308
+	#cmd = nvim -f -d -c '4wincmd w | wincmd J' "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
+	#cmd = nvim -d
+#	path = nvim # https://www.jborowski.eu/2018/09/neovim-as-git-difftool-mergetool/
+	layout = "LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE"
+	#layout = "(LOCAL,BASE,REMOTE / MERGED)"
+#[mergetool "nvimdiff"]
+#	hideResolved = true
+#	# https://stackoverflow.com/a/35482243/9285308
+#	# cmd = nvim -f -d -c '4wincmd w | wincmd J' "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
+#	#cmd = nvim -d
+#	#path = nvim # https://www.jborowski.eu/2018/09/neovim-as-git-difftool-mergetool/
+#	#layout = "LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE"
+#	#layout = "LOCAL,BASE,REMOTE / MERGED"
+
 [stackedrebase]
 	autoApplyIfNeeded = true
 	#autoApplyIfNeeded = false
@@ -284,6 +307,7 @@
 	lp = log --patch #--follow
 	#m = merge
 	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
+	mt = mergetool
 	#n =
 	o = browse # [o]pen -> hub browse -> opens repo in github
 	p = push --follow-tags

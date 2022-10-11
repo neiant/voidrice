@@ -261,8 +261,10 @@ gbt() { __gitwrap bt $* }
 gr() { __gitwrap r $* }
 grr() { __gitwrap rr $* }
 gri() { __gitwrap ri $* }
+griwe() { __gitwrap riw $* }
 gra() { __gitwrap ra $* }
 grc() { __gitwrap rc $* }
+grcw() { __gitwrap rcw $* }
 grom() { __gitwrap rom $* }
 griom() { __gitwrap riom $* }
 griof() { __gitwrap riof $* }

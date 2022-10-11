@@ -279,7 +279,7 @@
 	f = fetch
 	fa = fetch --all
 	fariom = !git fa && git riom
-	fariomw = !git fa && git rom
+	fariomw = !git fa && git riomw
 	farom = !git fa && git rom
 	#g =
 	# show a history of a file.
@@ -356,17 +356,22 @@
 	r = rebase
 	rr = stacked-rebase
 	rc = rebase --continue
+	rcw = !EDITOR=true git rebase --continue
 	ri = rebase -i
+	riw = !EDITOR=true git ri
 	ra = rebase --abort
 	rom = rebase origin/master
 	rof = rebase origin/fork
 	riom = rebase -i origin/master
 	riof = rebase -i origin/fork
-	riomw = rom
+	# still interactive, so that e.g. autosquash works, but will feel like non-interactive because won't open the editor
+	riomw = !EDITOR=true git riom
 	riofw = rof
 	rium = rebase -i upstream/master
 
-	#
+	# https://github.com/kiprasmel/git-rebase-diff
+	rd = rebase-diff
+
 	# stacked diffs in git
 	#
 	# https://github.com/kiprasmel/git-stacked-rebase

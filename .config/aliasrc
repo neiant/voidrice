@@ -554,25 +554,31 @@ kwsupd() {
 	yarn global add @pipedrive/k8s-workstation@latest
 }
 
-# recursive shred + rm
-shredr() {
+# recursive shred + rm + n (how many)
+shredrn() {
+	N="$1"
+	shift
 	DIR="$1"
+	shift
 	[ -z "$DIR" ] && {
-		printf "shredr DIR\n"
+		printf "shredrn N DIR\n"
 		return 1
 	}
 	! [ -d "$DIR" ] && {
 		[ -f "$DIR" ] && {
-			shred -zxfun30 "$DIR"
+			shred -zxfun${N} "$DIR"
 			return 0
 		}
 
 		printf "DIR doesn't exist! (got \"$DIR\")\n"
 		return 1
 	}
-	shift
-	find "$DIR" -type f -exec shred -zxfun30 $* {} \;
+	find "$DIR" -type f -exec shred -zxfun${N} $* {} \;
 	rm -rf -v "$DIR"
+}
+
+shredr() {
+	shredrn 30 $*
 }
 
 # generated with 'thefuck --alias'

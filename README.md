@@ -33,10 +33,10 @@ These are the dotfiles deployed by [LARBS](https://larbs.xyz), as seen on [Luke'
 
 ## Install these dotfiles and all dependencies
 
-On an Arch Linux (or similar) system, use [LARBS](https://larbs.xyz) to autoinstall everything:
+On an Arch Linux (or similar) system, use [LARBS](https://larbs.xyz) ([Kipras' fork](https://github.com/kiprasmel/larbs)) to autoinstall everything:
 
 ```sh
-curl -LO larbs.xyz/larbs.sh
+curl -LO http://raw.githubusercontent.com/kiprasmel/LARBS/master/larbs.sh
 
 # inspect the script, and then
 

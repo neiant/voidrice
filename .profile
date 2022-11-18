@@ -244,7 +244,7 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 export KEEPASS_DB="$HOME/private/keepassxc-passwords.kdbx"
 
 # work
-export PIPEDRIVE_GIT_DIR="$HOME/fun"
+export PIPEDRIVE_GIT_DIR="$HOME/wagie"
 
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
 export PUPPETEER_EXECUTABLE_PATH="$(which chromium)"

@@ -420,7 +420,8 @@ export REPORTTIME=3
 
 # ported from .bashrc #
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# useless & didn't do anything afaik, see instead ~/.profile
+#export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export GPG_TTY="$(tty)"
 #export PASSWORD_STORE_DIR="$HOME/.password-store"

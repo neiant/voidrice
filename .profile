@@ -328,6 +328,7 @@ esac
 # see https://stackoverflow.com/a/15646750/9285308
 # and https://github.com/yarnpkg/yarn/issues/2049#issuecomment-397629921
 export NODE_PATH="$(yarn global dir)"
+export PATH="$NODE_PATH/node_modules/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"

@@ -311,6 +311,9 @@ case "$OSTYPE" in
 		# add yabai (wm) scripts
 		export PATH="${XDG_CONFIG_HOME:-$HOME/.config}/yabai/scripts:$PATH"
 
+		# java kek
+		export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
 		;;
   linux*) 
 	  	#echo "LINUX" ;;

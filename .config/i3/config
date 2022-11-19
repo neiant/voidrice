@@ -186,9 +186,11 @@ bindsym $mod+Shift+space 	floating toggle
 # bindsym $mod+space		focus mode_toggle
 bindsym $mod+space			exec --no-startup-id ddspawn roam "run_directly"
 
-bindsym $mod+Escape		workspace prev
-#bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "$HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit"
-bindsym $mod+Shift+Escape	exec --no-startup-id prompt "Exit i3?" "i3 exit"
+#bindsym $mod+Escape		workspace prev
+##bindsym $mod+Shift+Escape 	exec --no-startup-id prompt "Exit i3?" "$HOME/.local/bin/tools/ecryptfs-unmount && i3-msg exit"
+#bindsym $mod+Shift+Escape	exec --no-startup-id prompt "Exit i3?" "i3 exit"
+bindsym $mod+Escape		focus right
+bindsym $mod+Shift+Escape	focus left
 
 bindsym $mod+BackSpace 		exec --no-startup-id keepassxc
 bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$reboot"

@@ -114,7 +114,7 @@
 	tool = default-difftool
 	algorithm = histogram
 [difftool "default-difftool"]
-  cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = code --wait --diff $LOCAL $REMOTE
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -246,7 +246,8 @@
 	ct = c -m "TEMP"
 	cf = "!git show \"$1\" --format=oneline --no-patch && git c --message=\"fixup! $1\" #" # https://stackoverflow.com/a/39523506/9285308
 	cg = cgg
-	cgg = "!git c -m \"$(curl -L http://whatthecommit.com/index.txt 2>/dev/null)\""
+	cgg = "!curl -sL http://whatthecommit.com/index.txt | git commit -F-"
+	gg = cgg
 	cl = clone
 	co = checkout
 	cob = checkout -b
@@ -267,15 +268,15 @@
 	dss = dst
 	e = exec
 	exec = "!exec " # exec script at root of repo!
-					# this is useful in case you're deep in the repo
-					# but want to exec a command at the top, e.g.
+	                # this is useful in case you're deep in the repo
+	                # but want to exec a command at the top, e.g.
 	                # `git exec sudo make install`
-                    #
-					# the opposite is using $GIT_PREFIX,
+	                #
+	                # the opposite is using $GIT_PREFIX,
 	                # see some examples above.
-					#
+	                #
 	                # see also https://github.com/kiprasmel/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
-					#
+	                #
 	f = fetch
 	fa = fetch --all
 	fariom = !git fa && git riom
@@ -314,6 +315,9 @@
 	pp = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\"" # hella neat! automatically sets upstream
 	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	pl = pull
+
+	# as safe as possible
+	pf = push --force-with-lease --force-if-includes
 
 	# patch from ref to HEAD + uncommited changes
 	patch = !git -c core.pager='' diff -u

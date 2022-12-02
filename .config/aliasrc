@@ -229,6 +229,7 @@ ggggg() { __gitwrap s $* }
 s() { __gitwrap s $* }
 gcl() { __gitwrap cl $* }
 gp() { __gitwrap p $* }
+gpf() { __gitwrap pf $* }
 gpa() { __gitwrap pa $* }
 gpar() { __gitwrap par $* }
 gparw() { __gitwrap parw $* }
@@ -324,6 +325,7 @@ gct() { __gitwrap ct $* }
 gcf() { __gitwrap cf $* }
 gcg() { __gitwrap cg $* }
 gcgg() { __gitwrap cgg $* }
+ggg() { __gitwrap gg $* }
 gt() { __gitwrap t $* }
 gtt() { __gitwrap tt $* }
 gtas() { __gitwrap tas $* }

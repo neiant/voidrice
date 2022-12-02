@@ -29,8 +29,7 @@ dsac ~/learnprojects/competitive-programming/competitive-programmers-handbook/
 daa ~/learnprojects/competitive-programming/competitive-programmers-handbook/
 da ~/docs/
 dcp ~/learnprojects/competitive-programming/competitive-programmers-handbook/
-aoc ~/learnprojects/competitive-programming/advent-of-code/2021
-aoc20 ~/learnprojects/competitive-programming/advent-of-code/2020
+aoc ~/learnprojects/competitive-programming/advent-of-code/2022
 lm ~/learnprojects/competitive-programming/lmio/
 lpk ~/learnprojects/kube
 gop ~/go/src/
@@ -85,7 +84,7 @@ ho /opt/lampp/htdocs
 froot ~/fun/froot
 wa ~/wagie
 wag ~/wagie
-wg ~/wagie
+wgg ~/wagie
 
 notes ~/projects/notes-private
 not ~/projects/roam-traverse-graph/plugin-export-public-pages

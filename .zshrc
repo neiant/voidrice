@@ -1,4 +1,3 @@
-
 # https://wiki.archlinux.org/title/zsh
 
 # make the gnu-date command available so that bootTime
@@ -76,7 +75,6 @@ zstyle ':completion:*' menu select completer _expand _complete _ignored _correct
 #bindkey -M 'menuselect' '^M' .accept-line
 #
 #
-##zstyle :compinstall filename '/home/kipras/.zshrc'
 zstyle :compinstall filename '$ZDOTDIT/.zshrc'
 #
 setopt autolist
@@ -117,7 +115,10 @@ stty erase "^?"
 #[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zshnameddirrc"
 
 # ghcup-env (haskell poggers)
-[ -f "/home/kipras/.ghcup/env" ] && source "/home/kipras/.ghcup/env"
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+
+# ocaml
+[ -f "$HOME/.opam/opam-init/init.zsh" ] && source "$HOME/.opam/opam-init/init.zsh"
 
 ###
 # history #

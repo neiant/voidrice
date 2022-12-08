@@ -262,11 +262,11 @@ case "$OSTYPE" in
 		# end load nvm
 		# (see also ~/.zshrc)
 
-		command -v "/usr/local/bin/ssh-askpass" &>/dev/null || {
+		if command -v "/usr/local/bin/ssh-askpass" &>/dev/null; then
+			export SUDO_ASKPASS="/usr/local/bin/ssh-askpass"
+		else
 			echo "please install https://github.com/theseal/ssh-askpass"
-			exit 1
-		}
-		export SUDO_ASKPASS="/usr/local/bin/ssh-askpass"
+		fi
 
 		# BEGIN PYTHON
 

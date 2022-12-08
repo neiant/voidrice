@@ -8,7 +8,7 @@ bmdirs="${XDG_CONFIG_HOME:-$HOME/.config}/directories"
 bmfiles="${XDG_CONFIG_HOME:-$HOME/.config}/files"
 
 # Output locations. Unactivated progs should go to /dev/null.
-shell_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
+shell_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
 zsh_named_dirs="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/zshnameddirrc"
 lf_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcutrc"
 vim_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/nvim/shortcuts.vim"

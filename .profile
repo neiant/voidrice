@@ -173,7 +173,7 @@ ex=🎯:\
 *.java=♨:\
 "
 
-[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ] && shortcuts >/dev/null 2>&1 &
+[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ] && "$HOME/.local/bin/"shortcuts >/dev/null 2>&1 &
 
 # Various bs
 

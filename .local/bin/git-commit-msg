@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+	echo 'NO! gctt or give message here'
+	exit 1
+else
+	git c -m "$*"
+	exit $?
+fi
+

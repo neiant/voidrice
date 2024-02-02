@@ -278,13 +278,8 @@ case "$OSTYPE" in
 		#export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 		#export PATH="$PATH:$HOME/Library/Python/3.8/bin"
 		#export PATH="$PATH:/usr/local/opt/python@3.9/libexec/bin"
+		export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 
-		# https://opensource.com/article/19/5/python-3-default-mac
-		if command -v pyenv 1>/dev/null 2>&1; then
-		  #eval "$(pyenv init -)"
-		  eval "$(pyenv init --path)"
-		fi
-		# export PATH="$PATH:$HOME/Library/Python/3.8/bin"
 
 		# END PYTHON
 	  

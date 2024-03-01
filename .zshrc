@@ -1,7 +1,34 @@
 # https://wiki.archlinux.org/title/zsh
+# https://zsh.sourceforge.io/Intro/intro_toc.html
 
-# make the gnu-date command available so that bootTime
-# can be accurately measured
+test -z "$RUN_PROFILER" || zmodload zsh/zprof
+
+case "$OSTYPE" in
+	darwin*)
+		if command -v gdate >/dev/null; then
+			get_date() { printf "%s" $(gdate +%s%N) }
+			bootTimeStart=$(get_date)
+		else
+			get_date() { printf "0" }
+			bootTimeStart=0
+			noStartTime=1
+		fi
+		;;
+	*)
+		# measure boot time (see also the last line)
+		# note: uses gnu-date
+		get_date() { printf "%s" $(date +%s%N) }
+		bootTimeStart=$(get_date)
+		;;
+esac
+
+rel() {
+	source "$HOME/.zshrc"
+	source "$HOME/.profile"
+	"$HOME/.local/bin/shortcuts"
+}
+
+# handle mac-os specifics
 case "$OSTYPE" in
 	darwin*)
 		# make gnu date (gdate) take over osx date, & other utils.
@@ -19,23 +46,7 @@ case "$OSTYPE" in
 
 		# higher precedence
 		export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-		;;
-	*)
-		;;
-esac
 
-# measure boot time (see also the last line)
-# note: uses gnu-date
-bootTimeStart=$(date +%s%N)
-
-rel() {
-	source "$HOME/.zshrc"
-	source "$HOME/.profile"
-}
-
-# handle mac-os specifics
-case "$OSTYPE" in
-	darwin*)
 		# disabled because no longer needed apparently -
 		# works just fine w/o it, even the 'date' stuff - 
 		# for it, just extending the $PATH is enough
@@ -69,17 +80,19 @@ case "$OSTYPE" in
 			}
 		}
 
-		# TODO fix on vscode
-		#eval "$(pyenv init -)"
-
-		# overwrite code the the FOSS vscodium
-		command -v vscodium >/dev/null && {
-			alias code="vscodium"
+		# overwrite code to the FOSS vscodium
+		command -v codium >/dev/null && {
+			alias code="codium"
 		}
+
 		;;
 	*) 
 		;;
 esac
+
+# have time work just like in bash/POSIX
+#disable -r time
+#alias time="time -p"
 
 # bash bash compatibility mode - see https://github.com/eddiezane/lunchy/issues/57#issuecomment-448588918
 #autoload -U +X bashcompinit && bashcompinit
@@ -105,11 +118,9 @@ _comp_options+=(globdots)		# Include hidden files.
 
 zstyle ':completion:*' menu select
 
-autoload -Uz promptinit
-promptinit
-
-# select the redhat prompt
-prompt redhat
+#autoload -Uz promptinit
+#promptinit
+#prompt redhat
 
 # hub.zsh_completion
 # https://github.com/github/hub/tree/master/etc
@@ -280,41 +291,52 @@ setopt aliases
 # Enable colors and change prompt:
 autoload -U colors && colors
 
+_HID_PREFIX=
+test -n "$__ZSH_HID" && _HID_PREFIX="H "
+
+# display slightly different prompt on ssh sessions
+IS_SSH=0
+test -n "$SSH_CLIENT" || test -n "$SSH_TTY" && IS_SSH=1
+
+NEWLINE=$'\n'
+
+# https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
+# https://github.com/linrock/zsh-prompt-generator
+
 if [ -f "$HOME/.config/git/git-prompt.sh" ]; then
 	# add the git prompt to precmd, as recommended in
 	# https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+	# the __git_ps1
+	# pre
+	# git's status
+	# post
+	# wrap git's status
 
 	GIT_PS1_COMPRESSSPARSESTATE=1
-
 	source "$HOME/.config/git/git-prompt.sh"
 
-	precmd () {
-		# the __git_ps1
-		# pre
-		# git's status
-		# post
-		# wrap git's status
-
-		_HID_PREFIX=
-		test -n "$__ZSH_HID" && _HID_PREFIX="H "
-	
-		__git_ps1 \
-		"${_HID_PREFIX}%b%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$reset_color%}" \
-		"%{$fg[red]%}]%{$reset_color%}$%b " \
-		" (%s)"
-		
-		# alternative, with exit code prefix:
-
-		# __git_ps1 \
-		# "%b%{$fg[red]%}[%{$fg[red]%}$?%{$reset_color%} %{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%1~%{$reset_color%}" \
-		# "%{$fg[red]%}]%{$reset_color%}$%b " \
-		# " (%s)"
-
-		#"%{$fg[red]%}$?%{$reset_color%} %b%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%1~%{$reset_color%}" \
-	}
+	if test "$IS_SSH" -ne 0; then
+		precmd () {
+			__git_ps1 \
+	 		"${_HID_PREFIX}%{%F{42}%}%n%{%F{156}%} %{%F{165}%}%m %F{0}%{%K{221}%}%~%k%{%f%}%(?.. %?)" \
+	 		"${NEWLINE}%(!.#.$) " \
+	 		" (%s)"
+	 	}
+	else
+		precmd () {
+			__git_ps1 \
+			"${_HID_PREFIX}%b%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%B%m%b %{$fg[magenta]%}%~%{$reset_color%}" \
+			"%{$fg[red]%}]%{$reset_color%}%(!.#.$)%b " \
+			" (%s)"
+		}
+	fi
 else
 	# without __git_prompt
-	export PS1="${_HID_PREFIX}%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+	if test "$IS_SSH" -ne 0; then
+	 	export PS1="${_HID_PREFIX}%{%F{42}%}%n%{%F{156}%} %{%F{165}%}%m %F{0}%{%K{221}%}%~%k%{%f%}%(?.. %?)${NEWLINE}%(!.#.$) "
+	else
+		export PS1="${_HID_PREFIX}%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+	fi
 fi
 
 # Use lf to switch directories and bind it to ctrl-o
@@ -416,15 +438,15 @@ fi
 
 # C-a for end of line, C-i for beginning of line (just like vi)
 
-# used for file manager
-#bindkey -- '^o' beginning-of-line
-#bindkey -M viins -- '^o' beginning-of-line
-#bindkey -M vicmd -- '^o' beginning-of-line
+# disabled because mixes with Tab.
+# see intead custom '[[CI' for iterm
+#bindkey -- '^i' beginning-of-line
+#bindkey -M viins -- '^i' beginning-of-line
+#bindkey -M vicmd -- '^i' beginning-of-line
 
-# used in tmux
-#bindkey -- '^a' end-of-line
-#bindkey -M vicmd -- '^a' end-of-line
-#bindkey -M viins -- '^a' end-of-line
+bindkey -- '^a' end-of-line
+bindkey -M vicmd -- '^a' end-of-line
+bindkey -M viins -- '^a' end-of-line
 
 ###
 
@@ -541,9 +563,29 @@ case "$OSTYPE" in
 			_ZSH_AUTOSUG="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 			[ -f "$_ZSH_AUTOSUG" ] && source "$_ZSH_AUTOSUG"
 
+			# iterm custom key comb:
+
+			# accept w/ C-a (go end of line)
+			#bindkey '^ ' autosuggest-accept
+
+			# ctrl+enter
+			bindkey          -- '[[CtE' autosuggest-execute
+			bindkey -M viins -- '[[CtE' autosuggest-execute
+			bindkey -M vicmd -- '[[CtE' autosuggest-execute
+			# cmd+enter
+			bindkey          -- '[[CE' autosuggest-execute
+			bindkey -M viins -- '[[CE' autosuggest-execute
+			bindkey -M vicmd -- '[[CE' autosuggest-execute
+			# use [[CI instead of ^i to differentiate between a tab
+			bindkey          -- '[[CtI' beginning-of-line
+			bindkey -M viins -- '[[CtI' beginning-of-line
+			bindkey -M vicmd -- '[[CtI' beginning-of-line
+
 			# zsh-syntax-highlighting.
 			_ZSH_AUTOHL="$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 			[ -f "$_ZSH_AUTOHL" ] && source "$_ZSH_AUTOHL"
+			#_ZSL_AUTOHL_FAST="$(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+			#[ -f "$_ZSL_AUTOHL_FAST" ] && source "$_ZSL_AUTOHL_FAST"
 		}
 		;;
 	*)
@@ -561,8 +603,9 @@ esac
 # see above
 _load_zsh_stuff_by_platform
 
-[ -z "$TMUX" ] && {
-	bootTimeDuration=$((($(date +%s%N) - $bootTimeStart)/1000000))
+if [ -z "$TMUX" ] && [ "x$noStartTime" = "x" ]; then
+	bootTimeDuration=$((($(get_date) - $bootTimeStart)/1000000))
 	printf "$bootTimeDuration ms\n"
-}
+fi
 
+test -z "$RUN_PROFILER" || zprof

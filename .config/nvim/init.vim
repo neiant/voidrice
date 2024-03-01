@@ -17,7 +17,7 @@ if has("mac")
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-"Plug 'https://github.com/tpope/vim-rsi'
+" Plug 'https://github.com/tpope/vim-rsi' " esc etc issues fix
 "Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -51,7 +51,7 @@ Plug 'tpope/vim-commentary'
 "Plug 'https://github.com/rdnetto/YCM-Generator', { 'branch': 'stable'} "  
 "Plug 'https://github.com/jalvesaq/nvim-r.git'
 "Plug 'editorconfig/editorconfig-vim'
-"Plug 'wakatime/vim-wakatime'
+Plug 'wakatime/vim-wakatime' " self-hosted, see https://github.com/muety/wakapi
 
 Plug 'https://github.com/tpope/vim-repeat'
 
@@ -81,13 +81,14 @@ Plug 'https://github.com/skywind3000/vim-terminal-help'
 Plug 'https://github.com/sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'https://github.com/tommcdo/vim-exchange'
 "Plug 'https://github.com/mkitt/tabline.vim' " tabs
+"Plug 'https://github.com/romgrk/barbar.nvim'
 Plug 'https://github.com/christoomey/vim-tmux-navigator'
 Plug 'https://github.com/machakann/vim-sandwich'
 Plug 'https://github.com/wellle/tmux-complete.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 " color display like #0FFFFF & hsl(120, 100%, 50%)
-Plug 'https://github.com/RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+"Plug 'https://github.com/RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " Plug 'https://github.com/justinmk/vim-sneak'
 Plug 'https://github.com/mbbill/undotree'
 Plug 'https://github.com/rhysd/git-messenger.vim'
@@ -236,8 +237,12 @@ endif
 
 " custom #sarpik
 	set tabstop=4
-	autocmd Filetype haskell setlocal tabstop=2
+	set softtabstop=0
 	set shiftwidth=4
+	set noexpandtab
+	set copyindent
+	set preserveindent
+	autocmd Filetype haskell setlocal tabstop=2
 	set autoindent
 	set backspace=indent,eol,start
 	" https://stackoverflow.com/a/2287449
@@ -289,34 +294,18 @@ set completefunc=emoji#complete
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " SLICK! Mappings for moving lines and preserving indentation
-	
-	" note you must have tpope/vim-rsi installed to avoid
-	" annoying stuff with Esc acting as Alt and calling these
-	" when you don't want to.
+
+	" to work on macos + iterm:
+	" tell iterm to send vim keys:
+	" https://www.dfurnes.com/notes/binding-command-in-iterm
+	" e.g. \<M-j> and \<M-k>
 	"
-  	" http://vim.wikia.com/wiki/Moving_lines_up_or_down
-	"
-	" must read before using:
-	" https://github.com/matze/vim-move/issues/15#issuecomment-168177827
-	"
-	" edit: that fix does not work;
-	" using tpope/vim-rsi fixes it!
-	"
- 	nnoremap <A-j> :m .+1<CR>==
+	nnoremap <A-j> :m .+1<CR>==
 	nnoremap <A-k> :m .-2<CR>==
 	inoremap <A-j> <Esc>:m .+1<CR>==gi
- 	inoremap <A-k> <Esc>:m .-2<CR>==gi
- 	vnoremap <A-j> :m '>+1<CR>gv=gv
- 	vnoremap <A-k> :m '<-2<CR>gv=gv
-	"
-	" see also https://github.com/matze/vim-move
-	"
-	" related:
-	"   https://stackoverflow.com/a/15620344/9285308
-	" & https://github.com/matze/vim-move/issues/15#issuecomment-168177827
-	"
-	" (tmux needs this too -- see the second link)
-	"
+	inoremap <A-k> <Esc>:m .-2<CR>==gi
+	vnoremap <A-j> :m '>+1<CR>gv=gv
+	vnoremap <A-k> :m '<-2<CR>gv=gv
 	set ttimeoutlen=0 
 
 " Perform dot commands over visual blocks:

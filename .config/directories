@@ -7,10 +7,11 @@ th	$HOME/Documents/thoughts/
 dl	$HOME/Downloads
 dl  ${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
 tt  $HOME/time-track
-pr  $HOME/private
+pr  $HOME/Documents/private
 pp	$HOME/projects
 te  $HOME/projects/server-party
 we 	$HOME/projects/website
+blog $HOME/projects/blog
 sm  $HOME/projects/sourcemod
 cpa  $HOME/projects/cputils
 fp 	$HOME/forkprojects
@@ -46,6 +47,7 @@ sn $HOME/projects/snitch-latest-car
 tt	$HOME/projects/turbo-schedule
 rtg	$HOME/projects/roam-traverse-graph
 gsr $HOME/projects/git-stacked-rebase
+pa  $HOME/patch
 ghb $HOME/projects/git-historical-blame
 grd $HOME/projects/git-rebase-diff
 tw  $HOME/learnprojects/tailwindcss
@@ -58,6 +60,9 @@ bz  $HOME/projects/biz
 biz $HOME/projects/biz
 nn 	$HOME/projects/neural-nets-from-scratch
 gi $HOME/forkprojects/git
+ra $HOME/infra
+fra $HOME/infra
+infra $HOME/infra
 pic	$HOME/Pictures
 # sa $HOME/screenshots
 vv  ${XDG_VIDEOS_DIR:-$HOME/Videos}
@@ -101,4 +106,10 @@ cs $HOME/csapp
 
 s $HOME/school
 sw $HOME/school/web
+
+# server
+ng /etc/nginx
+ngsa /etc/nginx/sites-available
+ngse /etc/nginx/sites-enabled
+srv $HOME/infra/server
 

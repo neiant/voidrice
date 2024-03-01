@@ -1,110 +1,98 @@
-# ~/.gitconfig
-#	@author:	Kipras Melnikovas (kipras.org) <kipras@kipras.org>
-#	@dotfiles:	https://github.com/kiprasmel/voidrice
-#	@license:	GPL-3.0
-#
-#	@description:
-#	This is Git's per-user configuration file.
-#
+########################################################################\
+#                                                                       #
+#                                                                       #
+#                                                                       #
+#          _______________________________________________              #
+#         /\                                              \             #
+#         \_|        _ _                      __ _        |             #
+#           |   __ _(_) |_    ___ ___  _ __  / _(_) __ _  |             #
+#           |  / _` | | __|  / __/ _ \| '_ \| |_| |/ _` | |             #
+#           | | (_| | | |_  | (_| (_) | | | |  _| | (_| | |             #
+#           |  \__, |_|\__|  \___\___/|_| |_|_| |_|\__, | |             #
+#           |  |___/                               |___/  |             #
+#           |                                             |             #
+#           |    https://github.com/kiprasmel/voidrice    |             #
+#           |                                             |             #
+#           |   __________________________________________|_            #
+#            \_/____________________________________________/           #
+#                                                                       #
+#                                                                       #
+#                                                                       #
+########################################################################/
 
+[init]
+	defaultBranch = master
 [user]
-	# username - custom, used for some aliases / scripts
-	username = kiprasmel
 	name = Kipras Melnikovas
 	email = kipras@kipras.org
-	# see aliasrc - uses $GPG_SIGNING_KEY instead
-	# signingkey = AA505BC1C6D8AD90 # arch
-	# signingkey = 157102AFA5DF13F5 # osx
+	# signingkey is $GPG_SIGNING_KEY
 [core]
-	# editor is $EDITOR. I don't have it here since it won't expand and will interfere with scripts.
-	#editor = '/usr/local/bin/code'              --wait
-	#editor = '/usr/local/bin/code' --new-window --wait
-
-	autocrlf = input # `auto` for Windows, `input` for *nix. Read more @ https://stackoverflow.com/q/5834014/9285308
-	safecrlf = false # hides warning message but doesn't impact `autocrlf` functionality
-	# see $GIT_PAGER instead (more flexible)
-	#pager = diff-so-fancy | less --tabs=4 -RFX
-	longpaths = true
-	# ignorecase = true
-	logAllRefUpdates = true # gitassembly
+	# editor is $EDITOR
+	# pager  is $GIT_PAGER
+	autocrlf = input
+	safecrlf = warn
+	logAllRefUpdates = true
+[advice]
+	statusHints =  false # clean git status output
+	detachedHead = false
+	addIgnoredFile = false
 [rerere]
-	enabled = true # gitassembly
+	enabled = true
 [imap]
 	host = mail.kipras.org
 	user = kipras@kipras.org
 	port = 993
-	sslverify = false
 	folder = Drafts
 [sendemail]
+	confirm = always
 	smtpEncryption = tls
 	smtpServer = mail.kipras.org
-	smtpUser = kipras@kipras.org
+	smtpUser = kipras
 	smtpServerPort = 587
+[format]
+	signoff = true
 [stash]
-	## usebuiltin = no # see https://public-inbox.org/git/xmqqa79lbpte.fsf@gitster-ct.c.googlers.com/
+	showIncludeUntracked = true
 [gpg]
 	program = gpg2
-[color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
-	grep = auto
 [commit]
 	verbose = true
 	gpgSign = true
 [merge]
-	ff = no
-	conflictStyle = zdiff3 # https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-mergeconflictStyle
-
-	# https://stackoverflow.com/a/19780597/9285308
-	# https://stackoverflow.com/a/70584930/9285308
+	ff = no # rebase + merge commit
+	conflictStyle = zdiff3
 	tool = nvimdiff
-[mergetool] # https://www.git-scm.com/docs/git-mergetool
-	# hideResolved = true
+[mergetool]
 	writeToTemp = true
+	keepBackup =  true
 [mergetool "vimdiff"]
-	#hideResolved = true
-	# https://stackoverflow.com/a/35482243/9285308
-	#cmd = nvim -f -d -c '4wincmd w | wincmd J' "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
-	#cmd = nvim -d
-#	path = nvim # https://www.jborowski.eu/2018/09/neovim-as-git-difftool-mergetool/
-	layout = "LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE"
-	#layout = "(LOCAL,BASE,REMOTE / MERGED)"
-#[mergetool "nvimdiff"]
-#	hideResolved = true
-#	# https://stackoverflow.com/a/35482243/9285308
-#	# cmd = nvim -f -d -c '4wincmd w | wincmd J' "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
-#	#cmd = nvim -d
-#	#path = nvim # https://www.jborowski.eu/2018/09/neovim-as-git-difftool-mergetool/
-#	#layout = "LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE"
-#	#layout = "LOCAL,BASE,REMOTE / MERGED"
-
+	layout = LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE + (LOCAL/BASE/REMOTE),MERGED
+	trustExitCode = true
 [absorb]
 	# https://github.com/tummychow/git-absorb
 	maxStack = 100
+	oneFixupPerCommit = true
+	fixupTargetAlwaysSHA = true
+	autoStageIfNothingStaged = true
+[addfiles]
+	# https://github.com/kiprasmel/git-add-files
+	#noInfoComment = true
 [stackedrebase]
+	# https://github.com/kiprasmel/git-stacked-rebase
 	#autoApplyIfNeeded = true
-	#autoApplyIfNeeded = false
 [rebase]
-	missingCommitsCheck = warn
-	#autostash = true # you cannot access it from the stash which sucks
-
-	# vim's `ce` cuts the commit (biggest reason),
-	# also could be issue of not being familiar
-	# if shown to someone else
-	# (i myself feel like its unfamiliar lol)
-	#abbreviateCommands = true # meh!
-	abbreviateCommands = false
-
-	# https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
+	stat = true
 	autoSquash = true
+	#autoStash = true # you cannot access it from the stash which sucks
+	updateRefs = true
+	abbreviateCommands = false # vim's `ce` cuts the commit sha so nope
+	missingCommitsCheck = error
 [pull]
 	rebase = true # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase
 	ff = yes
 [push]
-	followTags = true # see https://stackoverflow.com/a/26438076/9285308
-	#autoSetupRemote = true # previously used "git pp", now "git p(ush)" is enough. see git help config
+	followTags = true
+	#autoSetupRemote = true # git pp instead
 [fetch]
 	parallel = 0 # parallel >1
 [submodule]
@@ -116,55 +104,20 @@
 [help]
 	autoCorrect = 0
 [diff]
-	tool = default-difftool
-	algorithm = histogram
-	#colorMoved = zebra
+	algorithm = patience
+	#algorithm = histogram
 	
-	# TODO: https://matklad.github.io/2023/12/31/git-things.html#Git-Things
-	#colormoved = " default"
-	#colormovedws = "allow-indentation-change"
-[difftool "default-difftool"]
-	cmd = code --wait --diff $LOCAL $REMOTE
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[init]
-	defaultBranch = master
+	#colorMoved = "zebra"
+	#colorMovedWS = "allow-indentation-change"
+[grep]
+	lineNumber = true
+	patternType = perl
 
 [alias]
-	#
-	# Some insight about aliases
-	#
-	# $GIT_PREFIX refers to the **current** directory of the repo
-	# .           refers to the **root**    directory of the repo
-	#
-	# ---
-	#
-	# There's also different behavior depending if you create the alias
-	#
-	# a) without the exclamation mark (thus using only one git command), like so:
-	#    do_stuff =       commit -m "did some stuff"
-	#
-	# -> not sure if the $GIT_PREFIX even works in this case
-	#
-	# b) with    the exclamation mark (thus using any shell command(s)), like so:
-	#    do_stuff = !git commit -m "did some stuff" && echo "you just commited!"
-	#
-	# -> $GIT_PREFIX does what you expect it to do
-	#
-	# 
-	#
-	fn = "!f() { echo \"${1:-hi}\"; }; f; >/dev/null"
-
-	# https://gitlab.com/wavexx/git-assembler
-	# https://www.thregr.org/%7Ewavexx/software/git-assembler/
-	as = assembler
-
-	at = git-at # https://github.com/kiprasmel/git-at
-
 	a        = add
+
+	# ad* => add "dot"    (cwd)
+	# ag* => add "global" (repo root)
 
 	ad       = !git add ${GIT_PREFIX:-.} # refers to the **current** directory of the repo ([d]ot)
 	ag       = !git add               .  # refers to the **root**    directory of the repo ([g]lobal)
@@ -172,8 +125,8 @@
 	adc      = !git add ${GIT_PREFIX:-.} && git c
 	agc      = !git add               .  && git c
 
-	adct     = !git add ${GIT_PREFIX:-.} && git ctt
-	agct     = !git add               .  && git ctt
+	adct     = !git add ${GIT_PREFIX:-.} && git ct
+	agct     = !git add               .  && git ct
 
 	adcm     = !git add ${GIT_PREFIX:-.} && git cm
 	agcm     = !git add               .  && git cm
@@ -190,7 +143,6 @@
 	adcawpfn = !git add ${GIT_PREFIX:-.} && git ca --no-edit --no-verify && git push -f --no-verify
 	agcawpfn = !git add               .  && git ca --no-edit --no-verify && git push -f --no-verify
 
-	# see "cf"
 	adcf     = "!git add ${GIT_PREFIX:-.} && git cf $* #"
 	agcf     = "!git add               .  && git cf $* #"
 
@@ -203,7 +155,7 @@
 	adctpf   = !git add ${GIT_PREFIX:-.} && git c -m "TEMP" --no-verify && git push -f --no-verify
 	agctpf   = !git add               .  && git c -m "TEMP" --no-verify && git push -f --no-verify
 
-	ap  = add --patch
+	ap = add --patch
 	adp = !git add --patch ${GIT_PREFIX:-.}
 	agp = !git add --patch               .
 
@@ -211,242 +163,181 @@
 	ade = !git add --edit ${GIT_PREFIX:-.}
 	age = !git add --edit               .
 
+	af = add-files # https://github.com/kiprasmel/git-add-files
+
+	at = git-at # https://github.com/kiprasmel/git-at
+
+	# https://github.com/tummychow/git-absorb
+	ab = absorb
+	abr = absorb -r
+
 	b = branch
 	ba = branch --all
 	bt = branch --track
-	bso = branch --show-current
 	sob = branch --show-current
+	sod = !git diff "origin"/"$(git sob)" $*
+	sodp = !git diff "origin"/"$(git parent)" "$(git parent)" $*
 
-	# begin: git-assembler & stacked diffs
-	# a few aliases for comparing if pushing our branch is safe,
-	# and easily seeing if we added anything new, compared to what our parent added.
-
-	# show branch's diff
-	sobd = !git diff "origin"/"$(git sob)" $*
-	sod = sobd
-	# show branch's diff (parent branch's)
-	sobdp = !git diff "origin"/"$(git parent)" "$(git parent)" $*
-	sodp = sobdp
-
-	dp = !git diff "$(git parent)" $*
-	dps = !git dp --stat $*
-
-	sodd = comparebd
-	# compare our branch to origin diff, to parent's branch to origin diff
-	comparebdraw = "!f() { C=/tmp/current-branch; P=/tmp/parent-branch; git sobd | grep '^[+-]' > $C.diff; git sobdp | grep '^[+-]' > $P.diff; diff -u $P.diff $C.diff; }; f;"
-	comparebd = !git comparebdraw | diff-so-fancy | less
-	compared = comparebd
-	compd = comparebd
-
-	#sopbd = !git diff "$(git parent 2>/dev/null)"
-
-	# end: git-assembler & stacked diffs
-
-	bd = delete-branch # git-extras
 	bp = backup
-	backup = !git-backup # remote script, availabe @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-backup
-	behind = !git-behind # remote script, available @ github.com/kiprasmel/dotfiles/.local/bin/tools/git-behind
-	behind-remote = !git-behind-remote
+	#backup = backup # github.com/kiprasmel/dotfiles/.local/bin/tools/git-backup
+	#behind = behind # github.com/kiprasmel/dotfiles/.local/bin/tools/git-behind
+	#behind-remote = behind-remote # github.com/kiprasmel/dotfiles/.local/bin/statusbar/git-behind-remote
 
-	#c = commit -S -s
-	c = commit -S
-	# https://git-scm.com/docs/git-commit#Documentation/git-commit.txt---signoff
-	# https://docs.github.com/en/organizations/managing-organization-settings/managing-the-commit-signoff-policy-for-your-organization
-	# ^ sus. if requires signoffs, can rebase, otherwise nopers
+	c = commit
+	cm = commit-msg
+	ct = commit-msg TEMP
 
 	ca = c --amend
 	caw = c --amend --no-edit
 	cawpf = !git c --amend --no-edit && git push -f
-	cawpfn = !git c --amend --no-edit && git push -f --no-verify # --no-verify to ignore husky's hooks
-	#ct = c -m "TEMP"
-	ctt = "commit-msg TEMP"
-	ct = "commit-msg" # ~/.local/bin. used to be a bad habbit, now asks for at least some commit msg
-	cm = "commit-msg"
-	# print info of the target fixup commit & create a new commit that fixes up the target.
-	cf = "!git show \"$1\" --format=oneline --no-patch && git c --message=\"fixup! $(git rev-parse \"$1\")\" #" # https://stackoverflow.com/a/39523506/9285308
-	cfr = "!git cf \"$1\" && git fr"
-	rf = fr
+	cawpfn = !git c --amend --no-edit && git push -f --no-verify
+
+	cf = "!git show \"$1\" --format=oneline --no-patch && git c --message=\"fixup! $(git rev-parse \"$1\")\" #"
 	fr = "!git stash -u && git rebase -i \"$(git fixup-target)~\" && git stash pop #"
-	# parse out the fixup target from the now-committed "fixup! <committish>" commit's message.
+	cfr = "!git cf \"$1\" && git fr"
 	fixup-target = "!git show \"@\" --pretty='format:%s' -q | cut -d' ' -f2"
-	cg = cgg
-	cgg = "!curl -sL http://whatthecommit.com/index.txt | git commit -F-"
-	gg = cgg
-	#cl = clone
-	cl = "!git clone $* || hub clone $*"
-	# clone fast. see https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/#sparse-checkout-and-partial-clones
-	clf = "!git clone --filter=blob:none --no-checkout $* || hub clone --filter=blob:none --no-checkout $*"
+
 	co = checkout
 	cob = checkout -b
-	#co = !git stash -u && git checkout
-	cod = checkout dev
 	com = checkout master
-	cof = checkout fork
+
 	cfg = config --global --edit
-	cs = !clear && git status
-	csl = !clear && git sl
+
+	# cd needed in case inside git repo:
+	# without it would place cloned repo in repo root dir.
+	cl = "!cd \"${GIT_PREFIX:-.}\" && git clone $* || hub clone $* #"
+	clf = "!cd \"${GIT_PREFIX:-.}\" git clone --filter=blob:none --no-checkout $* || hub clone --filter=blob:none --no-checkout $*"
+
 	create = !hub create
+
 	d = diff
 	dd = !git diff ${GIT_PREFIX:-.}
 	dg = !git diff .
-	df = diff FETCH_HEAD
-	dm = diff AUTO_MERGE
-	dr = diff AUTO_MERGE # diff rerere
 	ds = diff --staged
 	dds = !git diff --staged ${GIT_PREFIX:-.}
-	dst = diff --stat
-	dss = dst
+	dst = !git diff --stat
+	df = diff FETCH_HEAD
+	da = diff AUTO_MERGE
+	dm = diff AUTO_MERGE
 	d3 = diff3c # http://github.com/kiprasmel/git-diff3c
+
 	e = exec
-	exec = "!exec " # exec script at root of repo!
-	                # this is useful in case you're deep in the repo
-	                # but want to exec a command at the top, e.g.
-	                # `git exec sudo make install`
-	                #
-	                # the opposite is using $GIT_PREFIX,
-	                # see some examples above.
-	                #
-	                # see also https://github.com/kiprasmel/git-backup/commit/b127ba68dffe7d6c84dc0ffc54bc810b3b9683ed
-	                #
+	exec = "!exec "
+
 	f = fetch
 	fa = fetch --all
+	farom = !git fa && git rom
 	fariom = !git fa && git riom
 	fariomw = !git fa && git riomw
-	farom = !git fa && git rom
+	fd = fetch --unshallow # deep
+	
 	#g =
-	# show a history of a file.
-	# see also https://stackoverflow.com/a/5493663/9285308
-	hist = lo --follow
-	hists = hist --stat
-	histp = hist --patch
-	hg = lg --follow
-	hop = !git-hop # https://github.com/kiprasmel/voidrice/blob/master/.local/bin/git-hop
-	#i =
-	j = jump # https://github.com/mykolaharmash/git-jump
+	#hop = hop # https://github.com/kiprasmel/voidrice/blob/master/.local/bin/git-hop
+
+	# cope https://github.com/git/git/commit/936d2c9301e41a84a374b98f92777e00d321a2ea
+	ignore = update-index --assume-unchanged
+
+	#j =
 	#k =
 
-	# man git-log
-	#   "--format"
-	#   "PRETTY FORMATS"
-	#
-	lo = log         --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %G?' --abbrev-commit
+	# man git-log, "--format", "PRETTY FORMATS"
 	l = lg
-	lgp = lg --patch
 	ls = lg --stat
+	lo = log          --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'     --abbrev-commit
+	lg = log --graph  --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'     --abbrev-commit
+	lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %G?' --abbrev-commit
 	lgs = ls
-	lp = log --patch #--follow
+	lgp = lg --patch
+	lp = log --patch
+	lpf = lp --follow
+
+	lf = !git log -L":$1:$2" # log function in file
+
 	#m = merge
-	mf = merge --ff # I have `merge` set to `ff: no` (see above), so by default it's `merge --no-ff`. This is the opposite.
 	mt = mergetool
+
 	#n =
-	o = browse # [o]pen -> hub browse -> opens repo in github
+
+	o = browse # https://github.com/tj/git-extras/blob/main/bin/git-browse
+
 	p = push --follow-tags
-	pp = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\"" # hella neat! automatically sets upstream
-	pt = push --follow-tags                                   # not `--tags` for a reason: https://stackoverflow.com/a/26438076/9285308
 	pl = pull
-
-	# as safe as possible
 	pf = push --force-with-lease --force-if-includes
+	pp   = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\""
+	ppf  = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\" --force-with-lease --force-if-includes"
+	ppff = "!git push --set-upstream \"${1:-origin}\" \"${2:-HEAD}\" --force"
 
-	# patch from ref to HEAD + uncommited changes
-	patch = !git -c core.pager='' diff -u
 	pa = patch
+	patch = !GIT_PAGER='' git diff -u
 
-	# patch of only the ref
-	patchonly = !git -c core.pager='' show -u --raw            
-	pao = patchonly
-
-	# stats (+, -, ±) from ref to HEAD + uncommited changes
-	pad = !git-pad
-
-	# stats (+, -, ±) of only the ref (same as pad, but s/pa/pao/g)
-	paod = !git-pad ${1:-@}
-	pado = paod
-
-	padom = !git-pad origin/master..${1:-@}
-
-	padd = !git-pad ${1:-origin/master}..${2:-@}
-
-	# stats (compared to the parent branch)
+	# https://github.com/kiprasmel/voidrice/tree/master/.local/bin/git-pad
+	# "patch delta"
+	#pad = pad              # stats (+, -, ±) from ref to HEAD + uncommited changes
+	pado = !git pad ${1:-@} # stats (+, -, ±) of *only* the ref
+	padom = !git pad origin/master..${1:-@}
+	padd = !git pad ${1:-origin/master}..${2:-@}
 	padp = !git pad "$(git parent)"
 
-	ppr = pull-request # requires 'hub'
-	dpr = pull-request -d
-	prme =        pull-request --push -a kiprasmel  #--base        master  -epo                                                  # targets upstream TODO
-	prmed =       pull-request --push -a kiprasmel                          -depo                                                # targets upstream TODO
-	prmee =  !hub pull-request --push -a kiprasmel  --base kiprasmel:master  -epo --head kiprasmel:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
-	prmed =       pull-request --push -a kiprasmel  #--base        master -depo                                                  # targets upstream TODO
-	prmeed = !hub pull-request --push -a kiprasmel  --base kiprasmel:master -depo --head kiprasmel:"$(git symbolic-ref --short HEAD)" # targets origin  (your repo)
-	prmedw = !hub prmed --no-edit
-	prmeedw = !hub prmeed --no-edit
-	#prmeed = !git pull-request -a kiprasmel  --base "${$(git config --global --get user.username):-kiprasmel}":master -depo # targets local repo
 	parent = !git parentraw 2>/dev/null
 	parentraw = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 
 	prev = !git checkout "$(git parent)"
 
 	#q =
+	quote = show --pretty=reference --no-patch
+
 	r = rebase
-	#rr = stacked-rebase
-	rr = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
-	rc = rebase --continue
-	rcw = !EDITOR=true git rebase --continue
 	ri = rebase -i
-	riw = !EDITOR=true git ri
 	ra = rebase --abort
-	rom = rebase origin/master
-	rof = rebase origin/fork
+	rc = rebase --continue
+	rr = stacked-rebase
+	rom =  rebase    origin/master
 	riom = rebase -i origin/master
-	riof = rebase -i origin/fork
-	# still interactive, so that e.g. autosquash works, but will feel like non-interactive because won't open the editor
-	riomw = !EDITOR=true git riom
-	riofw = rof
+	rum =  rebase    upstream/master
 	rium = rebase -i upstream/master
+	riw =   !EDITOR=true git ri
+	rcw =   !EDITOR=true git rc
+	riomw = !EDITOR=true git riom
+	riumw = !EDITOR=true git rium
 
 	# https://github.com/kiprasmel/git-rebase-diff
 	rd = rebase-diff
 
 	rad = range-diff
 
-	rew = find-rewritten # https://github.com/kiprasmel/git-find-rewritten
+	re = rerere
 
-	# stacked diffs in git
-	#
 	# https://github.com/kiprasmel/git-stacked-rebase
-	# https://www.npmjs.com/package/git-stacked-rebase
-	stacked-rebase = !$HOME/projects/git-stacked-rebase/dist/git-stacked-rebase.js
+	#stacked-rebase = stacked-rebase
 	stacked-rebase-prod = !npx git-stacked-rebase
 
 	rs = reset
-	rmbp = rmbackup
-	rmbackup = !git-rm-backup # remote script, availabe @ dotfiles/.scripts/tools/git-rm-backup
 
 	rgrep = !git grep "$1" $(git rev-list --all)
 
 	s = status
 	sa = status --untracked-files=all
 	si = status --ignored=traditional
-	sil = !git -c color.status=always status --ignored=traditional | less -R
-	sl = !git -c color.status=always status | less -R # https://stackoverflow.com/a/18304605
-			                                          # the -c option is explained by `man git` @ 47:
-													  # Pass a configuration parameter to the command.
-	                                                  # The value given will override values from configuration files.
-	sb = show-branch
+
 	so = show
 	sos = show --stat
-	# show commit message
+	soc = !git show "$(pbpaste)"
 	som = show --pretty=format:"%B" -q
-	ss = show
-	sh = show HEAD
-	shc = !git show HEAD | wc
 
-	soc = !git show "$(xclip -r -selection clipboard -o)" # TODO
-
+	st = stash
+	sto = stash show
+	stso = sto
+	stop = stash show -p
+	stsop = stop
+	stu = stuk
+	stuk = stash --include-untracked --keep-index
+	stp = stash pop
+	stl = stash list
 	stash-unapply = !git stash show -p | git apply -Rc
 
+	sb = show-branch
 	spo = sparse-checkout
+
 	t = tag
 	tt = tas
 	tas = tag -a -s
@@ -457,14 +348,3 @@
 	#y =
 	#z =
 
-[mergetool "gitmergetool"]
-	cmd = gitmergetool \"$BASE\" \"$REMOTE\" \"$LOCAL\" \"$MERGED\"
-[mergetool "diffconflicts"]
-	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
-	trustExitCode = true
-[mergetool]
-	keepBackup = false
-	prompt = false
-	trustExitCode = true
-[mergetool "fugitive"]
-	cmd = vim -f -c \"vdiffsplit!\" \"$MERGED\"

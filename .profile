@@ -168,7 +168,7 @@ ex=🎯:\
 *.java=♨:\
 "
 
-[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ] && "$HOME/.local/bin/"shortcuts >/dev/null 2>&1 &
+[ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ] && setsid -f "$HOME/.local/bin/shortcuts" >/dev/null 2>&1
 
 # xampp
 export PATH="$PATH:/opt/lampp"
@@ -211,9 +211,6 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 # before running the command, such as 'kubectl get pods'
 # 
 
-# firefox
-[ -f  "$HOME/.local/share/cargo/env" ] && . "$HOME/.local/share/cargo/env"
-
 # DBs
 export KEEPASS_DB="$HOME/private/keepassxc-passwords.kdbx"
 
@@ -222,6 +219,9 @@ export PIPEDRIVE_GIT_DIR="$HOME/wagie"
 
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
 export PUPPETEER_EXECUTABLE_PATH="$(which chromium)"
+
+# TODO change when PR lands
+export XBAR_PLUGIN_DIR="$HOME/Library/Application Support/xbar/plugins"
 
 # https://stackoverflow.com/a/18434831
 case "$OSTYPE" in
@@ -242,7 +242,7 @@ case "$OSTYPE" in
 		# "n" prefix on M1.
 		# on intel macs, would be "/usr/local/" or "~/.local/share".
 		# is needed so that won't need `sudo` for `n` / `npm`
-		export N_PREFIX="/opt/homebrew"
+		export N_PREFIX="$HOMEBREW_PREFIX"
 
 		# begin load nvm
 		export NVM_DIR="$HOME/.config/nvm"
@@ -268,6 +268,8 @@ case "$OSTYPE" in
 		#export PATH="$PATH:/usr/local/opt/python@3.9/libexec/bin"
 		export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 
+		# https://docs.brew.sh/Homebrew-and-Python#site-packages-and-the-pythonpath
+		#export PYTHONPATH="$(brew --prefix)/lib/python3.9/site-packages:$PYTHONPATH"
 
 		# END PYTHON
 	  
@@ -308,11 +310,19 @@ case "$OSTYPE" in
 		# https://github.com/riscv-software-src/homebrew-riscv/issues/111#issuecomment-1803490459
 		export PATH="$(brew --prefix bison)/bin:$PATH"
 
+		# git core make doc
+		export PATH="$(brew --prefix libxslt)/bin:$PATH"
+
+		# local docker
+		export PATH="$HOME/.docker/bin:$PATH"
+
 		;;
   linux*) 
 	  	#echo "LINUX" ;;
 
 		export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
+
+		export N_PREFIX="$HOME/.local"
 
   		;;
   bsd*)     #echo "BSD" ;;
@@ -350,7 +360,7 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 [ -f ~/yarn-completion.bash ] && . ~/yarn-completion.bash
-[ -f "$HOME/.local/share/cargo/env" ] && . "$HOME/.local/share/cargo/env"
+[ -f "$CARGO_HOME/env" ] && . "$CARGO_HOME/env"
 
 case "$OSTYPE" in
   solaris*) ;;

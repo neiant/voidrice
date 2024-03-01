@@ -1,0 +1,12 @@
+#!/bin/sh
+
+port="$1"
+shift
+host="vm"
+test $# -gt 0 && {
+	host="$1"
+	shift
+}
+
+shareport "$port" "$host" "$port" -fN $*
+

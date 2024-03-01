@@ -46,14 +46,13 @@ alias ka="killall" \
 	cls="clear" \
 	c.="code . && exit" \
 	gpgkeys="gpg --list-secret-keys --keyid-format LONG" \
+	gpgpub="gpg --armor --export $*" \
 	gpgreload="gpg-connect-agent reloadagent /bye" \
 	yv="yarn version" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
 	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
 	lsp="pacman -Qett --color=always | less" \
 	ffmpeg="ffmpeg -hide_banner" \
-	chrome="nohup google-chrome-stable & disown" \
-	ce="chrome && exit 0" \
 	queota="printf \"want some?\n\"" \
 	scim="sc-im" \
 	py="python" \
@@ -82,6 +81,10 @@ alias \
 	ccat="highlight --out-format=ansi" \
 	ip="ip -color=auto"
 
+alias \
+	pgrep="pgrep -i" \
+	pkill="pkill -i"
+
 # These common commands are just too long! Abbreviate them.
 alias \
 	ka="killall" \
@@ -104,12 +107,6 @@ alias \
 
 # This alias is important. It enables the `pauseallmpv` command.
 alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
-
-# Removed because of https://github.com/nvbn/thefuck/issues/1018
-### https://github.com/nvbn/thefuck
-### eval $(thefuck --alias)
-
-
 
 # Utility variables
 # not meant to be used in scripts, rather - directly in the command line
@@ -297,6 +294,7 @@ grmbp() { __gitwrap rmbp $* }
 grgrep() { __gitwrap rgrep $* }
 gl() { __gitwrap l $* }
 glg() { __gitwrap lg $* }
+glp() { __gitwrap lp $* }
 glgp() { __gitwrap lgp $* }
 gls() { __gitwrap ls $* }
 glgs() { __gitwrap lgs $* }
@@ -344,6 +342,7 @@ gae() { __gitwrap ae $* }
 gade() { __gitwrap ade $* }
 gage() { __gitwrap age $* }
 
+gaf() { __gitwrap af $* }
 gat() { __gitwrap at $* }
 gbp() { __gitwrap bp $* }
 gss() { __gitwrap ss $* }
@@ -410,6 +409,10 @@ yt() { y test $* }
 yg() { y global $* }
 yga() { y global add $* }
 
+pm() {
+	pnpm "$@"
+}
+
 rr() {
 	cputils $*
 }
@@ -454,10 +457,6 @@ za() {
 postwoman() {
 	/opt/google/chrome/google-chrome --profile-directory=Default --app-id=ljencpkfbmahjfhepjlnokmmfipcbcld $*
 }
-
-# https://github.com/nvbn/thefuck
-# removed because of https://github.com/nvbn/thefuck/issues/1018
-###eval $(thefuck --alias)
 
 # --- #
 
@@ -597,6 +596,18 @@ cclear() { printf "" | xsel --clipboard }
 
 ca="--color=always"
 
+ascii_colors() {
+	for x in {0..8}; do 
+    	for i in {30..37}; do 
+        	for a in {40..47}; do 
+            	echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "
+        	done
+        	echo
+    	done
+	done
+	echo ""
+}
+
 sa() { ssh-add $* }
 
 ba() { bat -P $* }
@@ -640,26 +651,8 @@ shredr() {
 	shredrn 30 $*
 }
 
-# generated with 'thefuck --alias'
-fuck() {
-    TF_PYTHONIOENCODING=$PYTHONIOENCODING;
-    export TF_SHELL=zsh;
-    export TF_ALIAS=fuck;
-    TF_SHELL_ALIASES=$(alias);
-    export TF_SHELL_ALIASES;
-    TF_HISTORY="$(fc -ln -10)";
-    export TF_HISTORY;
-    export PYTHONIOENCODING=utf-8;
-    TF_CMD=$(
-        thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
-    ) && eval $TF_CMD;
-    unset TF_HISTORY;
-    export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
-    test -n "$TF_CMD" && print -s $TF_CMD
-}
-
-q() { _checkhid $0 && hid $* }
-h() { _checkhid $0 && hid $* }
+q() { _checkhid $0 && hid $*; }
+h() { _checkhid $0 && hid $*; }
 hid() {
 	_checkhid $0 || return 1
 	lcnt() { wc -l "$1" | awk '{ print $1 }' }
@@ -777,8 +770,24 @@ off() {
 	return 0
 }
 
+salt() {
+	LEN="${1:-64}"
+	cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w "$LEN" | head -n 1
+}
+
 fps() {
 	ffprobe -v 0 -of csv=p=0 -select_streams v:0 -show_entries stream=r_frame_rate $*
+}
+
+ff_timelapse_60() {
+	FILE="$1"
+	shift
+	ffmpeg -an -i "$FILE" -vf "setpts=0.01666*PTS" -vcodec libx264 -r 60 $* "timelapse-60--$FILE"
+}
+ff_timelapse_30() {
+	FILE="$1"
+	shift
+	ffmpeg -an -i "$FILE" -vf "setpts=0.03333*PTS" -vcodec libx264 -r 60 $* "timelapse-30--$FILE"
 }
 
 # ffmpeg: trim/cut out part of video
@@ -827,5 +836,41 @@ ff_merge() {
 	ffmpeg -f concat -safe 0 -i "$FILELIST" -c copy "$OUTFILE"
 
 	printf "\n$OUTFILE\n\n"
+}
+
+# disk waste
+
+ncduscan() {
+	from="${1:-/}"
+
+	time_utc="$(date "+%Y-%m-%d")"
+	outfile="ncdu-$time_utc"
+	n=1
+	while test -f "$outfile"; do
+		outfile="ncdu-$time_utc.$n"
+		n=$((n+1))
+	done
+
+	outfile="$outfile.gz"
+	sudo ncdu -e --confirm-quit -1o- "$from" | gzip > "$outfile"
+
+	echo "$outfile"
+}
+ncduview() {
+	zcat "$@" | ncdu -e -f-
+}
+
+prune_docker() {
+	sudo docker image  prune -a "$@"
+	sudo docker system prune -a "$@"
+}
+
+prune_journal() {
+	sudo journalctl --rotate
+	sudo journalctl --vacuum-time=1s
+}
+restrict_journal() {
+	sudo printf "\nSystemMaxUse=100M\n" >> "/etc/systemd/journald.conf"
+	sudo systemctl restart systemd-journald
 }
 

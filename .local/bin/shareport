@@ -1,27 +1,59 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
-TO_HOST="${TO_HOST:-prod}" # configured in ~/.ssh/config; can set to address / ip / url etc.
-TO_HOST_PORT="${TO_HOST_PORT:-2020}" # configured on your host
-
-if [ -z "$1" ]; then
-	printf "\
+USAGE="\
 usage:
 
-shareport-ssh LOCAL_PORT [ANYTHING ELSE FORWARDED TO THE SSH COMMAND]
+shareport local_port [remote='prod'] [remote_port=2020] [-- [SSH OPT]...]
 
 examples:
-    shareport-ssh 3000
-    shareport-ssh 3000 -fN
+    shareport 3000
+    shareport 3000 -fN
+    shareport 3000 root@example.com
+    shareport 3000 root@example.com 6000
+    shareport 3000 root@example.com 6000 -fN
 
-see also:
-    man ssh
-    https://youtu.be/N8f5zv9UUMI
 "
+test -z "$1" && {
+	>&2 printf "$USAGE"
 	exit 1
-else
-	PORT="$1"
-	shift
-fi
+}
 
-ssh -R "$TO_HOST_PORT":localhost:"$PORT" "$TO_HOST" $*
+run() {
+	set -x
+	ssh -R "$remote_port":localhost:"$local_port" "$remote" $*
+	set +x
+}
+
+local_port="$1"
+shift
+remote="prod"
+remote_port="2020"
+
+test $# -gt 0 && case "$1" in
+	--)
+		shift
+		run $*
+		exit $?
+	;;
+	*)
+		remote="$1"
+		shift
+	;;
+esac
+test $# -gt 0 && case "$1" in
+	--)
+		shift
+		run $*
+		exit $?
+	;; 
+	*)
+		remote_port="$1"
+		shift
+	;;
+esac
+test $# -gt 0 && case "$1" in
+	--) shift ;;
+esac
+
+run $*
 

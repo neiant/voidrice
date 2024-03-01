@@ -26,6 +26,9 @@ textype() { \
 	$command --output-directory="$dir" "$base"
 }
 
+# set env var that can check in script for debugging
+export COMPILER=1
+
 case "$file" in
 	*config.h) sudo make install ;;
 	*\.c) cc "$file" -o "$base" && "$base" ;;

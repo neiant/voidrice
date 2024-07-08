@@ -23,8 +23,8 @@
 [init]
 	defaultBranch = master
 [user]
-	name = Kipras Melnikovas
-	email = kipras@kipras.org
+	name = Neilas Antanavicius
+	email = antanaviciusneilas@gmail.com
 	# signingkey is $GPG_SIGNING_KEY
 [core]
 	# editor is $EDITOR
@@ -57,9 +57,9 @@
 	program = gpg2
 [commit]
 	verbose = true
-	gpgSign = true
+	#gpgSign = true
 [merge]
-	ff = no # rebase + merge commit
+	#ff = no # rebase + merge commit
 	conflictStyle = zdiff3
 	tool = nvimdiff
 [mergetool]
@@ -88,8 +88,8 @@
 	abbreviateCommands = false # vim's `ce` cuts the commit sha so nope
 	missingCommitsCheck = error
 [pull]
-	rebase = true # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase
-	ff = yes
+	#rebase = true # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pullrebase
+	#ff = yes
 [push]
 	followTags = true
 	#autoSetupRemote = true # git pp instead

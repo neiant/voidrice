@@ -81,9 +81,9 @@ case "$OSTYPE" in
 		}
 
 		# overwrite code to the FOSS vscodium
-		command -v codium >/dev/null && {
-			alias code="codium"
-		}
+		#command -v codium >/dev/null && {
+		#	alias code="codium"
+		#}
 
 		;;
 	*) 

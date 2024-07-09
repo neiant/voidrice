@@ -232,7 +232,6 @@ gs() { __gitwrap s $* }
 cos() { config s $* }
 cop() { config p $* }
 coc() { config c $* }
-cod() { config d $* }
 gso() { __gitwrap so $* }
 gsos() { __gitwrap sos $* }
 gsom() { __gitwrap som $* }

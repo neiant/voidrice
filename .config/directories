@@ -113,3 +113,5 @@ ngsa /etc/nginx/sites-available
 ngse /etc/nginx/sites-enabled
 srv $HOME/infra/server
 
+cod $HOME/Desktop/Code
+
